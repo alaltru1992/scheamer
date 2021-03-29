@@ -1,0 +1,151 @@
+$break1: 376px;
+$break1_0: 576px;
+$break2: 660px;
+$break30: 720px;
+$break3: 768px;
+$break4: 900px;
+$break5: 1024px;
+$break6: 1080px;
+$break7: 1280px;
+$break8: 1366px;
+$break9: 1600px;
+$break10: 1920px;
+$break11: 5120px;
+
+
+@mixin mediaDesk {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break5) {@content;}
+  }
+}
+
+@mixin mediaMob_is-mobile-ignore {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (max-width: $break5 - 1) and (orientation: landscape) { @content; }
+  }
+}
+
+
+@mixin mediaMob {
+  @media (max-width: $break5 - 1) and (orientation: landscape) {
+    // задваивание класса для повышения приоритета селектора
+    .mobile.mobile & {
+      @content;
+    }
+  }
+}
+
+@mixin minDesc {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (max-width: $break5 - 1) and (orientation: landscape) {
+      .desktop & {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin mediaScale2 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (max-width: 780px), (max-height: 530px) {
+      .desktop & { @content; }
+    }
+  }
+}
+
+@mixin mediaScale3 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (max-width: 680px), (max-height: 450px) {
+      .desktop & { @content; }
+    }
+  }
+};
+
+// on plug open
+@mixin plugOn {
+  .main.desktop & {
+    @media (max-width: 639px), (max-height: 359px) {
+      @content;
+    }
+  }
+}
+
+
+@mixin mediaMob_portrait {
+  @media (max-width: $break5 - 1) and (orientation: portrait) { @content; }
+}
+
+@mixin mediaIpad {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break5) and (max-width: $break5) and (min-height: $break1) and (max-height: $break3) { @content; }
+  }
+}
+
+@mixin media1024x576 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break1) and (max-width: $break5) and (max-height: $break1_0) { @content; }
+  }
+}
+
+@mixin media1024{
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break1) and (max-width: $break5), (max-height: $break2) { @content; }
+  }
+}
+
+@mixin media1280x720{
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break5) and (max-width: $break7), (max-height: $break30) { @content; }
+  }
+}
+
+@mixin media1366x768x721 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break1) and (max-width: $break8), (max-height: $break3) { @content; }
+  }
+}
+
+@mixin media1366x768 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break1) and (max-width: $break8), (max-height: ($break4 - 1)) {
+      @content; 
+    }
+  }
+}
+
+@mixin media1600x900 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (max-width: $break9), (max-height: $break6 - 1){ @content; }
+  }
+}
+
+@mixin media5k {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break9 + 1) and (max-width: $break11) and (min-height:$break6 + 1) { @content; }
+  }
+}
+
+@mixin retina {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media
+    (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
+    (   min--moz-device-pixel-ratio: 2)      and (min-width: 1300px),
+    (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 1300px),
+    (        min-device-pixel-ratio: 2)      and (min-width: 1300px),
+    (                min-resolution: 192dpi) and (min-width: 1300px),
+    (min-resolution: 2dppx) and (min-width: 1300px) { @content; }
+  }
+}
+
+@mixin media1023{
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (max-width: 1023px) { @content; }
+  }
+}
+
+@mixin media1024x719 {
+  body:not(.disable-adaptive) #{if(&, "&", "*")} {
+    @media (min-width: $break5) and (max-height: 719px) { @content; }
+  }
+}
+
