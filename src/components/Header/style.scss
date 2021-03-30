@@ -2,8 +2,56 @@
 
 .header{
   width: 80%;
-  height: 32px;
+  height: 48px;
   border: 2px solid $borders;
   margin: 2px;
   overflow: hidden;
+  display: flex;
+  padding: 4px;
+  justify-content: flex-start;
+
+  &-elements-container{
+    display: flex;
+    height: 100%;
+    background-color: $elements;
+    border-radius: 1px;
+    padding: 2px;
+    align-items: center;
+    &-img{
+      display: flex;
+      background:  url("../../res/images/arrow-down.svg") no-repeat;
+      width: 24px;
+      height: 24px;
+      margin-left: 4px;
+      cursor: pointer;
+      transition: transform 0.25s;
+      &.open{
+        transform: rotate(180deg);
+      }
+    }
+    span{
+      line-height: 1.8;
+    }
+    &_list{
+      position: absolute;
+      display: block;
+      margin: 0;
+      list-style: none;
+      top: 48px;
+      background-color: $elements;
+      border-radius: 4px;
+      min-width: 120px;
+      padding: 4px;
+      box-sizing: content-box;
+      &.closed{
+        display: none;
+      }
+      &_element{
+        background-color: $elements;
+        border-radius: 4px;
+        height: 24px;
+        cursor: pointer;
+      }
+    }
+  }
 }

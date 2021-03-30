@@ -1,12 +1,16 @@
 import {connect} from "react-redux";
+import {useState, useEffect, useRef} from 'react'
 import "./style.scss"
 
 function LayersContainer(props) {
 
-    const {layers} = props;
+    const {layers, creation} = props;
+    useEffect(() => {
+
+    }, []);
 
     return (
-        <div className={"layers-container"}>
+        <div className={"layers-container" + (creation.creatingObject ? " selected" : "")}>
 
         </div>
     );
@@ -14,6 +18,7 @@ function LayersContainer(props) {
 
 const mapStateToProps = state =>({
     layers: state.layers,
+    creation: state.creation
 })
 
 export default connect(mapStateToProps)(LayersContainer);
