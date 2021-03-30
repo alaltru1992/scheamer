@@ -1,6 +1,10 @@
 import "./style.scss"
+import {connect} from 'react-redux'
 
-function App() {
+function App(props) {
+
+  const {layers} = props;
+
   return (
     <div className={"main"}>
 
@@ -8,4 +12,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state =>({
+  layers: state.layers,
+})
+
+export default connect(mapStateToProps)(App);
