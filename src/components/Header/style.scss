@@ -1,0 +1,9 @@
+@import "../../scss/_general";
+
+.header{
+  width: 80%;
+  height: 32px;
+  border: 2px solid $borders;
+  margin: 2px;
+  overflow: hidden;
+}

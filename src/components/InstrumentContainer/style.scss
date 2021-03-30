@@ -1,0 +1,10 @@
+@import "../../scss/_general";
+.instrument-container{
+  position: absolute;
+  top: 0;
+  margin: 2px;
+  right: 0;
+  width: calc(20% - 6px);
+  height: calc(100% - 6px);
+  border: 2px solid #696969;
+}

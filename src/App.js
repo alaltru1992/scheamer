@@ -1,5 +1,8 @@
 import "./style.scss"
 import {connect} from 'react-redux'
+import Header from "./components/Header"
+import InstrumentContainer from "./components/InstrumentContainer"
+import LayersContainer from "./components/LayersContainer"
 
 function App(props) {
 
@@ -7,7 +10,9 @@ function App(props) {
 
   return (
     <div className={"main"}>
-
+      <Header/>
+      <LayersContainer/>
+      <InstrumentContainer/>
     </div>
   );
 }

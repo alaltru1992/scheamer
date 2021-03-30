@@ -1,0 +1,10 @@
+@import "../../scss/_general";
+.layers-container{
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  width: 80%;
+  height: calc(100vh - 40px);
+  border: 2px solid $borders;
+  background-color: #fff;
+}
