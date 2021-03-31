@@ -19,17 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="-add basic containers">
-      <change afterPath="$PROJECT_DIR$/src/ac/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/creation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/resolution.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/images/arrow-down.svg" afterDir="false" />
+    <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="-add header selectors">
+      <change afterPath="$PROJECT_DIR$/src/res/images/close.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LayersContainer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayersContainer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LayersContainer/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayersContainer/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scss/_base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/_base.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scss/colors.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/colors.scss" afterDir="false" />
     </list>
@@ -85,7 +82,8 @@
       <option name="presentableId" value="Default" />
       <updated>1617041794637</updated>
       <workItem from="1617041795939" duration="1532000" />
-      <workItem from="1617110160300" duration="10831000" />
+      <workItem from="1617110160300" duration="10904000" />
+      <workItem from="1617196162107" duration="7590000" />
     </task>
     <task id="LOCAL-00001" summary="-init">
       <created>1617042523357</created>
@@ -129,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617113961181</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="-add header selectors">
+      <created>1617121051172</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1617121051172</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,7 +156,8 @@
     <MESSAGE value="-init" />
     <MESSAGE value="-add redux" />
     <MESSAGE value="-add basic containers" />
-    <option name="LAST_COMMIT_MESSAGE" value="-add basic containers" />
+    <MESSAGE value="-add header selectors" />
+    <option name="LAST_COMMIT_MESSAGE" value="-add header selectors" />
   </component>
   <component name="WindowStateProjectService">
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617116862945">
@@ -166,9 +172,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1617041953260" />
-    <state x="361" y="132" key="Vcs.Push.Dialog.v2" timestamp="1617113962593">
+    <state x="361" y="132" key="Vcs.Push.Dialog.v2" timestamp="1617121052314">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="132" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1617113962593" />
+    <state x="361" y="132" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1617121052314" />
+    <state x="478" y="145" width="579" height="534" key="find.popup" timestamp="1617202453254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="478" y="145" width="579" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1617202453254" />
   </component>
 </project>

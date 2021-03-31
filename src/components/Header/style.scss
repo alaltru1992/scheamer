@@ -8,50 +8,110 @@
   overflow: hidden;
   display: flex;
   padding: 4px;
-  justify-content: flex-start;
+  justify-content: space-between;
 
-  &-elements-container{
+  &-containers-container{
     display: flex;
-    height: 100%;
-    background-color: $elements;
-    border-radius: 1px;
-    padding: 2px;
-    align-items: center;
-    &-img{
+    .header-elements-container{
       display: flex;
-      background:  url("../../res/images/arrow-down.svg") no-repeat;
-      width: 24px;
-      height: 24px;
-      margin-left: 4px;
-      cursor: pointer;
-      transition: transform 0.25s;
-      &.open{
-        transform: rotate(180deg);
-      }
-    }
-    span{
-      line-height: 1.8;
-    }
-    &_list{
-      position: absolute;
-      display: block;
-      margin: 0;
-      list-style: none;
-      top: 48px;
+      height: 100%;
       background-color: $elements;
-      border-radius: 4px;
-      min-width: 120px;
-      padding: 4px;
-      box-sizing: content-box;
-      &.closed{
-        display: none;
+      border-radius: 1px;
+      padding: 2px;
+      align-items: center;
+      margin-left: 10px;
+      &-img{
+        display: flex;
+        background:  url("../../res/images/arrow-down.svg") no-repeat;
+        width: 24px;
+        height: 24px;
+        margin-left: 4px;
+        cursor: pointer;
+        transition: transform 0.25s;
+        &.open{
+          transform: rotate(180deg);
+        }
       }
-      &_element{
+      span{
+        line-height: 1.8;
+      }
+      &_list{
+        position: absolute;
+        display: block;
+        margin: 0;
+        list-style: none;
+        top: 48px;
         background-color: $elements;
         border-radius: 4px;
-        height: 24px;
-        cursor: pointer;
+        min-width: 120px;
+        padding: 4px;
+        box-sizing: content-box;
+        &.closed{
+          display: none;
+        }
+        &_element{
+          background-color: $elements;
+          border-radius: 4px;
+          height: 24px;
+          cursor: pointer;
+        }
       }
+    }
+  }
+  &-add-layer{
+    border-radius: 2px;
+    background-color: $elements;
+    transition: background-color 0.25s;
+    font-size: 16px;
+    &:hover{
+      background-color: $elements-hover;
+    }
+    &:active{
+      background-color: $elements-active;
+      color: #fff;
+    }
+  }
+  &-add-new-layer-form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: $main;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    &-label{
+      padding-left: 20px;
+      padding-right: 20px;
+      color: $light-font-color;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    &-name{
+      display: flex;
+      margin-top: 12px;
+      justify-content: center;
+      align-items: center;
+      padding-right: 12px;
+      padding-left: 12px;
+      &-label{
+        padding-left: 20px;
+        padding-right: 20px;
+        color: $light-font-color;
+        font-size: 14px;
+        text-align: center;
+      }
+
+    }
+    &-add{
+      margin-top: 24px;
+      margin-bottom: 12px;
+      margin-left: 35%;
+      background-color: #408eff;
+      color: #333333;
+      border-radius: 2px;
+      margin-right: 35%;
     }
   }
 }

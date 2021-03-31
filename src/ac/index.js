@@ -15,3 +15,12 @@ export function selectResolution(value){
         }
     }
 }
+
+export function switchLayer(value){
+    return{
+        type: "switch-layer",
+        data:{
+            activeLayer: value
+        }
+    }
+}
