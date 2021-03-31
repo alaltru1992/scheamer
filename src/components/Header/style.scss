@@ -123,5 +123,15 @@
       border-radius: 2px;
       margin-right: 35%;
     }
+    &-close{
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: url("../../res/images/close.svg") no-repeat;
+      transform: rotate(45deg);
+      cursor: pointer;
+    }
   }
 }

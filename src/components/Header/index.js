@@ -37,11 +37,11 @@ function Header(props) {
     const [addLayerFormOpened, addLayerFormToggler] = useState(false);
     const [newLayerName, newLayerNameInput] = useState('');
 
-    useOutsideAlerter([elements, resolutionList, layersList], () => listToggler(null))
+    useOutsideAlerter([elements, resolutionList, layersList], () => listToggler(null));
 
     const addLayerForm = !!addLayerFormOpened &&
         <div className={"header-add-new-layer-form"}>
-            <div className={"header-add-new-layer-form-close"}/>
+            <div onClick={() => addLayerFormToggler(false)} className={"header-add-new-layer-form-close"}/>
             <span className={"header-add-new-layer-form-label"}>Добавление слоя</span>
             <div className={"header-add-new-layer-form-name"}>
                 <span className={"header-add-new-layer-form-name-label"}>Введите название</span>
