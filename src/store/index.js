@@ -1,10 +1,10 @@
 import {createStore, compose, applyMiddleware} from 'redux'
 import reducer from "../reducers/index"
+import middlewares from "../middlewares"
 
-// const enchancer = compose(applyMiddleware(middlewares), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+ const enchancer = compose(applyMiddleware(middlewares));
 
-const store = createStore(reducer);
-// const store = createStore(reducer, enchancer);
+ const store = createStore(reducer, enchancer);
 
 window.store = store;
 

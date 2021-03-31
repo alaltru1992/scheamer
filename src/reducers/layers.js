@@ -1,4 +1,4 @@
-export default (state = { layers: [], activeLayer: null}, action) =>{
+export default (state = { layers: [], x: null}, action) =>{
     switch(action.type) {
         case 'add-layer':
             state = {

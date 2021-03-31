@@ -1,12 +1,13 @@
 import {connect} from "react-redux";
 import "./style.scss"
 import {useState, useEffect, useRef} from 'react'
-import {selectAddingElement, selectResolution, switchLayer} from "../../ac"
+import {selectAddingElement, selectResolution, switchLayer, addLayer} from "../../ac"
+import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 
 
 function Header(props) {
 
-    const {layers, creation, resolution} = props;
+    const {layers} = props;
 
     const toggleLists = (list) =>{
         list === listOpend ? listToggler(null) : listToggler(list)
@@ -15,11 +16,28 @@ function Header(props) {
     const elementSelect = (list, value, dispatchFunction) =>{
         toggleLists(list);
         props.dispatch(dispatchFunction(value))
+    }
+    const inputHandler = event => {
+        newLayerNameInput(event.target.value);
+    }
 
+    const elements = useRef(null);
+    const resolutionList = useRef(null);
+    const layersList = useRef(null);
+
+    const addLayerHandler = (name) => {
+        if(name !== "" && !layers.layers.some(elm => elm.name === name)){
+            props.dispatch(addLayer(name));
+            addLayerFormToggler(false);
+            newLayerNameInput('');
+        }
     }
 
     const [listOpend, listToggler] = useState(null);
     const [addLayerFormOpened, addLayerFormToggler] = useState(false);
+    const [newLayerName, newLayerNameInput] = useState('');
+
+    useOutsideAlerter([elements, resolutionList, layersList], () => listToggler(null))
 
     const addLayerForm = addLayerFormOpened &&
         <div className={"header-add-new-layer-form"}>
@@ -27,22 +45,22 @@ function Header(props) {
             <span className={"header-add-new-layer-form-label"}>Добавление слоя</span>
             <div className={"header-add-new-layer-form-name"}>
                 <span className={"header-add-new-layer-form-name-label"}>Введите название</span>
-                <input className={"header-add-new-layer-form-name-input"}/>
+                <input onChange={inputHandler} className={"header-add-new-layer-form-name-input"}/>
             </div>
-            <button className={"header-add-new-layer-form-add"}>
+            <button onClick={() => addLayerHandler(newLayerName)} className={"header-add-new-layer-form-add"}>
                 Добавить
             </button>
         </div>
 
     const existingLayer =  layers.layers.length &&
-        <div className={"header-elements-container"}>
+        <div ref={layersList} className={"header-elements-container"}>
             <span>Слои</span>
             <div className={"header-elements-container-img" + (listOpend === "existing-layers" ? "" : " open")} onClick={() => toggleLists("existing-layers")}/>
             <ul className={"header-elements-container_list" + (listOpend === "existing-layers" ? "" : " closed") }>
                 {
                     layers.layers.map(elm =>{
                         return(
-                            <li key={elm.id} className={"header-elements-container_list_element"} onClick={() => elementSelect("existing-layers", elm.id, switchLayer)}>{elm.name}</li>
+                            <li key={elm.id} className={"header-elements-container_list_element" + (elm.id === layers.activeLayer ? " selected": "")} onClick={() => elementSelect("existing-layers", elm.id, switchLayer)}>{elm.name}</li>
                         )
                     })
                 }
@@ -52,7 +70,7 @@ function Header(props) {
 
     return (
         <div className={"header"}>
-            <div className={"header-containers-container"}>
+            <div ref={elements} className={"header-containers-container"}>
                 <div className={"header-elements-container"}>
                     <span>Добавить элемент</span>
                     <div className={"header-elements-container-img" + (listOpend === "selector" ? "" : " open")} onClick={() => toggleLists("selector")}/>
@@ -62,7 +80,7 @@ function Header(props) {
                         <li className={"header-elements-container_list_element"} onClick={() => elementSelect("selector", "modifier", selectAddingElement)}>Модификатор</li>
                     </ul>
                 </div>
-                <div className={"header-elements-container"}>
+                <div ref={resolutionList} className={"header-elements-container"}>
                     <span>Выбрать разрешение</span>
                     <div className={"header-elements-container-img" + (listOpend === "resolution" ? "" : " open")} onClick={() => toggleLists("resolution")}/>
                     <ul className={"header-elements-container_list" + (listOpend === "resolution" ? "" : " closed") }>

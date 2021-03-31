@@ -54,6 +54,16 @@
           border-radius: 4px;
           height: 24px;
           cursor: pointer;
+          &.selected{
+            &:after{
+              content: '';
+              width: 24px;
+              height: 24px;
+              background: url("../../res/images/selected.svg") no-repeat;
+              position: absolute;
+              right: 0;
+            }
+          }
         }
       }
     }

@@ -24,3 +24,14 @@ export function switchLayer(value){
         }
     }
 }
+
+export function addLayer(value){
+    return{
+        type: "add-layer",
+        data:{
+            layer:{
+                name: value
+            }
+        }
+    }
+}
