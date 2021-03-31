@@ -26,6 +26,11 @@ div{
   display: none;
 }
 
+.not-active{
+  opacity: 0.7;
+  pointer-events: none;
+}
+
 button{
   border: none;
   outline: none;

@@ -7,7 +7,7 @@ import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 
 function Header(props) {
 
-    const {layers} = props;
+    const {layers, creation, resolution} = props;
 
     const toggleLists = (list) =>{
         list === listOpend ? listToggler(null) : listToggler(list)
@@ -39,7 +39,7 @@ function Header(props) {
 
     useOutsideAlerter([elements, resolutionList, layersList], () => listToggler(null))
 
-    const addLayerForm = addLayerFormOpened &&
+    const addLayerForm = !!addLayerFormOpened &&
         <div className={"header-add-new-layer-form"}>
             <div className={"header-add-new-layer-form-close"}/>
             <span className={"header-add-new-layer-form-label"}>Добавление слоя</span>
@@ -52,7 +52,7 @@ function Header(props) {
             </button>
         </div>
 
-    const existingLayer =  layers.layers.length &&
+    const existingLayer =  !!layers.layers.length &&
         <div ref={layersList} className={"header-elements-container"}>
             <span>Слои</span>
             <div className={"header-elements-container-img" + (listOpend === "existing-layers" ? "" : " open")} onClick={() => toggleLists("existing-layers")}/>
@@ -71,22 +71,22 @@ function Header(props) {
     return (
         <div className={"header"}>
             <div ref={elements} className={"header-containers-container"}>
-                <div className={"header-elements-container"}>
+                <div className={"header-elements-container" + (!layers.layers.length ? ' not-active': '')}>
                     <span>Добавить элемент</span>
                     <div className={"header-elements-container-img" + (listOpend === "selector" ? "" : " open")} onClick={() => toggleLists("selector")}/>
                     <ul className={"header-elements-container_list" + (listOpend === "selector" ? "" : " closed") }>
-                        <li className={"header-elements-container_list_element"} onClick={() => elementSelect("selector", "container", selectAddingElement)}>Контейнер</li>
-                        <li className={"header-elements-container_list_element"} onClick={() => elementSelect("selector", "element", selectAddingElement)}>Элемент</li>
-                        <li className={"header-elements-container_list_element"} onClick={() => elementSelect("selector", "modifier", selectAddingElement)}>Модификатор</li>
+                        <li className={"header-elements-container_list_element" + ("container" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "container", selectAddingElement)}>Контейнер</li>
+                        <li className={"header-elements-container_list_element" + ("element" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "element", selectAddingElement)}>Элемент</li>
+                        <li className={"header-elements-container_list_element" + ("modifier" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "modifier", selectAddingElement)}>Модификатор</li>
                     </ul>
                 </div>
                 <div ref={resolutionList} className={"header-elements-container"}>
                     <span>Выбрать разрешение</span>
                     <div className={"header-elements-container-img" + (listOpend === "resolution" ? "" : " open")} onClick={() => toggleLists("resolution")}/>
                     <ul className={"header-elements-container_list" + (listOpend === "resolution" ? "" : " closed") }>
-                        <li className={"header-elements-container_list_element"} onClick={() => elementSelect("resolution", "1920x1080", selectResolution)}>1920x1080</li>
-                        <li className={"header-elements-container_list_element"} onClick={() => elementSelect("resolution", "1280x720", selectResolution)}>1280x720</li>
-                        <li className={"header-elements-container_list_element"} onClick={() => elementSelect("resolution", "1024x576", selectResolution)}>1024x576</li>
+                        <li className={"header-elements-container_list_element" + ("1920x1080" === resolution.resolution ? " selected": "")} onClick={() => elementSelect("resolution", "1920x1080", selectResolution)}>1920x1080</li>
+                        <li className={"header-elements-container_list_element" + ("1280x720" === resolution.resolution ? " selected": "")} onClick={() => elementSelect("resolution", "1280x720", selectResolution)}>1280x720</li>
+                        <li className={"header-elements-container_list_element" + ("1024x576" === resolution.resolution ? " selected": "")} onClick={() => elementSelect("resolution", "1024x576", selectResolution)}>1024x576</li>
                     </ul>
                 </div>
                 {existingLayer}
