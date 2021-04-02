@@ -7,6 +7,13 @@ export function selectAddingElement(value){
     }
 }
 
+export function dropCreation(){
+    return{
+        type: "select-drop",
+
+    }
+}
+
 export function selectResolution(value){
     return{
         type: "select-resolution",
@@ -44,7 +51,10 @@ export function addElement({type, start, finish, layerId}){
             type,
             start,
             finish,
-            layerId
+            layerId,
+            properties:[
+
+            ]
         }
     }
 }

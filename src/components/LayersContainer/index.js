@@ -2,13 +2,15 @@ import {connect} from "react-redux";
 import {useState, useEffect, useRef} from 'react'
 import "./style.scss"
 import { ResizeObserver } from '@juggle/resize-observer';
-import {addElement} from "../../ac"
+import {addElement, dropCreation} from "../../ac"
+import {convertDataToView} from "../../helpers"
 
 function LayersContainer(props) {
 
     const layerContainer = useRef(null)
     const [actualResolution, resolutionChange] = useState(null)
     const [creatingObj, creatingObjHandler] = useState(null)
+    const [innerContent, innerContentChange] = useState(null)
 
     const {layers, creation} = props;
 
@@ -34,6 +36,7 @@ function LayersContainer(props) {
             const y = clientY - 52;
             props.dispatch(addElement({type, ...creatingObj, finish:{x,y}, layerId: layers.activeLayer}));
             creatingObjHandler(null);
+            props.dispatch(dropCreation());
         }
     }
     useEffect(() => {
@@ -58,13 +61,20 @@ function LayersContainer(props) {
         }
     }, [creation]);
 
+    useEffect(() => {
+        !!layers.layers.length && !!layers.layers.find(x => x.id = layers.activeLayer).content.length &&
+        innerContentChange(convertDataToView(layers.layers.find(x => x.id = layers.activeLayer).content))
+    }, [layers]);
+
 
     return (
         <div onPointerDown={(event) => startCreation(event, creation.creatingObject)}
              onPointerUp={(event) => finishCreation(event,creation.creatingObject)}
              onPointerMove={(event) => creationInProgress(event, creation.creatingObject)}
              ref={layerContainer} className={"layers-container" + (creation.creatingObject ? " selected" : "")}>
-
+            {
+                innerContent
+            }
         </div>
     );
 }

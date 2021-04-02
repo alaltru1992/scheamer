@@ -6,6 +6,12 @@ export default (state = { creatingObject: null}, action) =>{
                 creatingObject: action.data.value
             }
             break;
+        case 'select-drop':
+            state = {
+                ...state,
+                creatingObject: null
+            }
+            break;
         default:
             break;
     }

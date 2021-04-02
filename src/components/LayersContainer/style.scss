@@ -7,6 +7,7 @@
   height: calc(80vw * 9 / 16);
   border: 2px solid $borders;
   background-color: #fff;
+  position: relative;
   &.selected{
     cursor: crosshair;
   }

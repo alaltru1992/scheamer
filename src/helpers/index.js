@@ -7,3 +7,35 @@ export function randomId(){
     }
     return str
 }
+
+function convertTypeView(data){
+    switch(data.type){
+        case "container":
+            return convertContainerView(data);
+        case "element":
+            return convertElementView(data);
+        case "modifier":
+            return convertModifierView(data);
+    }
+}
+
+function convertContainerView(data){
+    const style = {
+        border:  '1px solid #000'
+    }
+}
+
+function convertElementView(data){
+
+}
+
+function convertModifierView(data){
+
+}
+
+export function convertDataToView(data){
+    debugger
+    return[
+        data.map( x => convertTypeView(x))
+    ]
+}
