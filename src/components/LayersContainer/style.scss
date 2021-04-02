@@ -3,8 +3,8 @@
   margin-left: 2px;
   margin-right: 2px;
   margin-bottom: 2px;
-  width: 80%;
-  height: calc(100vh - 56px);
+  width: 80vw;
+  height: calc(80vw * 9 / 16);
   border: 2px solid $borders;
   background-color: #fff;
   &.selected{
