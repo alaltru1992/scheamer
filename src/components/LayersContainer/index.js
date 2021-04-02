@@ -2,18 +2,26 @@ import {connect} from "react-redux";
 import {useState, useEffect, useRef} from 'react'
 import "./style.scss"
 import { ResizeObserver } from '@juggle/resize-observer';
+import {addElement} from "../../ac"
 
 function LayersContainer(props) {
 
     const layerContainer = useRef(null)
     const [actualResolution, resolutionChange] = useState(null)
+    const [creatingObj, creatingObjHandler] = useState(null)
 
     const {layers, creation} = props;
 
     const startCreation = ({clientX, clientY}, type) => {
-        const x = clientX - 4;
-        const y = clientY - 52;
-       
+        if(type) {
+            const x = clientX - 4;
+            const y = clientY - 52;
+            !creatingObj && creatingObjHandler({
+                start:{
+                    x,y
+                }
+            })
+        }
     }
 
     const creationInProgress = ( {clientX, clientY}, type) => {
@@ -21,7 +29,12 @@ function LayersContainer(props) {
     }
 
     const finishCreation = ({clientX, clientY}, type) => {
-
+        if(type) {
+            const x = clientX - 4;
+            const y = clientY - 52;
+            props.dispatch(addElement({type, ...creatingObj, finish:{x,y}, layerId: layers.activeLayer}));
+            creatingObjHandler(null);
+        }
     }
     useEffect(() => {
         const ro = new ResizeObserver((entries, observer) => {

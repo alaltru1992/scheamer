@@ -30,8 +30,21 @@ export function addLayer(value){
         type: "add-layer",
         data:{
             layer:{
-                name: value
+                name: value,
+                content:[]
             }
+        }
+    }
+}
+
+export function addElement({type, start, finish, layerId}){
+    return{
+        type: "add-element",
+        data:{
+            type,
+            start,
+            finish,
+            layerId
         }
     }
 }

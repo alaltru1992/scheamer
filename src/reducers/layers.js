@@ -1,4 +1,4 @@
-export default (state = { layers: [], x: null}, action) =>{
+export default (state = { layers: [], activeLayer: null}, action) =>{
     switch(action.type) {
         case 'add-layer':
             state = {
@@ -21,6 +21,19 @@ export default (state = { layers: [], x: null}, action) =>{
             state = {
                 ...state,
                 activeLayer: action.data.activeLayer
+            }
+            break;
+        case 'add-element':
+            const tmpLayers = state.layers;
+            tmpLayers.find(x => x.id === action.data.layerId).content.push({
+                ...action.data
+            })
+
+            state = {
+                ...state,
+                layers:[
+                    ...tmpLayers
+                ]
             }
             break;
         default:

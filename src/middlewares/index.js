@@ -16,6 +16,13 @@ export default store => next => action =>{
         next(action)
         next(switchLayer(action.data.layer.id))
     }
+    else if(action.type === "add-element") {
+        action = {
+            ...action,
+            id: randomId()
+        }
+        next(action)
+    }
     else{
         next(action)
     }
