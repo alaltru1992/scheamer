@@ -8,10 +8,10 @@ export function randomId(){
     return str
 }
 
-function convertTypeView(data){
+function convertTypeView(data, resolution){
     switch(data.type){
         case "container":
-            return convertContainerView(data);
+            return convertContainerView(data, resolution);
         case "element":
             return convertElementView(data);
         case "modifier":
@@ -19,10 +19,17 @@ function convertTypeView(data){
     }
 }
 
-function convertContainerView(data){
+function convertContainerView(data, resolution){
     const style = {
-        border:  '1px solid #000'
+        border:  '1px solid #000',
+        position: 'absolute',
+        display: 'flex',
+        left:  ((data.start.x/resolution.width) * 100) + '%',
+        top:   ((data.start.y/resolution.height) * 100) + '%',
+        width: Math.abs(((data.finish.x - data.start.x)/resolution.width) * 100)+'%',
+        height: Math.abs(((data.finish.y - data.start.y)/resolution.height) * 100)+'%'
     }
+    return <div style={style}></div>
 }
 
 function convertElementView(data){
@@ -33,9 +40,8 @@ function convertModifierView(data){
 
 }
 
-export function convertDataToView(data){
-    debugger
+export function convertDataToView(data, resolution){
     return[
-        data.map( x => convertTypeView(x))
+        data.map( x => convertTypeView(x, resolution))
     ]
 }

@@ -12,7 +12,7 @@ function LayersContainer(props) {
     const [creatingObj, creatingObjHandler] = useState(null)
     const [innerContent, innerContentChange] = useState(null)
 
-    const {layers, creation} = props;
+    const {layers, creation, resolution} = props;
 
     const startCreation = ({clientX, clientY}, type) => {
         if(type) {
@@ -63,7 +63,7 @@ function LayersContainer(props) {
 
     useEffect(() => {
         !!layers.layers.length && !!layers.layers.find(x => x.id = layers.activeLayer).content.length &&
-        innerContentChange(convertDataToView(layers.layers.find(x => x.id = layers.activeLayer).content))
+        innerContentChange(convertDataToView(layers.layers.find(x => x.id = layers.activeLayer).content, actualResolution))
     }, [layers]);
 
 
@@ -81,7 +81,8 @@ function LayersContainer(props) {
 
 const mapStateToProps = state =>({
     layers: state.layers,
-    creation: state.creation
+    creation: state.creation,
+    resolution: state.resolution
 })
 
 export default connect(mapStateToProps)(LayersContainer);
