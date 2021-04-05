@@ -45,16 +45,23 @@ export function addLayer(value){
 }
 
 export function addElement({type, start, finish, layerId}){
+    let data = {
+        type,
+        start,
+        finish,
+        layerId,
+        properties:[
+
+        ]
+    }
+    if(type === "container"){
+        data = {
+            ...data,
+            children: []
+        }
+    }
     return{
         type: "add-element",
-        data:{
-            type,
-            start,
-            finish,
-            layerId,
-            properties:[
-
-            ]
-        }
+        data
     }
 }

@@ -24,8 +24,8 @@ function convertContainerView(data, resolution){
         border:  '1px solid #000',
         position: 'absolute',
         display: 'flex',
-        left:  ((data.start.x/resolution.width) * 100) + '%',
-        top:   ((data.start.y/resolution.height) * 100) + '%',
+        left: data.start.x < data.finish.x ?  (((data.start.x/resolution.width) * 100) + '%') : (((data.finish.x/resolution.width) * 100) + '%'),
+        top: data.start.y < data.finish.y ?  (((data.start.y/resolution.height) * 100) + '%') : (((data.finish.y/resolution.height) * 100) + '%'),
         width: Math.abs(((data.finish.x - data.start.x)/resolution.width) * 100)+'%',
         height: Math.abs(((data.finish.y - data.start.y)/resolution.height) * 100)+'%'
     }

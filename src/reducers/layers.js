@@ -35,6 +35,7 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
                     ...tmpLayers
                 ]
             }
+            debugger
             break;
         default:
           break;

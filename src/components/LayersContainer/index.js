@@ -12,7 +12,7 @@ function LayersContainer(props) {
     const [creatingObj, creatingObjHandler] = useState(null)
     const [innerContent, innerContentChange] = useState(null)
 
-    const {layers, creation, resolution} = props;
+    const {layers, creation} = props;
 
     const startCreation = ({clientX, clientY}, type) => {
         if(type) {
