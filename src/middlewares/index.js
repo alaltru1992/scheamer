@@ -19,7 +19,10 @@ export default store => next => action =>{
     else if(action.type === "add-element") {
         action = {
             ...action,
-            id: randomId()
+            data:{
+                ...action.data,
+                id:randomId()
+            }
         }
         next(action)
     }
