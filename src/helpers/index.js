@@ -46,23 +46,39 @@ export function convertDataToView(data, resolution){
     ]
 }
 
-export function walkOverToDeepest(layer, conditionHandler){
+export function walkOverToDeepest(layer, conditionHandler, element){
+    return  walkTree(layer.content, conditionHandler, element, layer.id)
+}
 
-    function checkKnot(knot, conditionHandler, currentId){
-        return conditionHandler(knot) ? knot.id : currentId
+function walkTree(content, conditionHandler, element, initialId){
+  let tmpId = initialId;
+  content.map( (container, index) => {
+      if(conditionHandler(container,element)){
+        tmpId = container.id;
+          if(container.children.length){
+              tmpId = walkTree(container.children, conditionHandler, element, tmpId)
+          }
+      }
+  })
+    return tmpId
+}
+
+export function conditionInContainerHandler({start: containerStart, finish: containerFinish, type}, {start: elemStart, finish: elemFinish}){
+    if (type !== "container") return false
+    const ContCoords = {
+        xStart: Math.min(containerStart.x, containerFinish.x),
+        yStart: Math.min(containerStart.y, containerFinish.y),
+        xFinish: Math.max(containerStart.x, containerFinish.x),
+        yFinish: Math.max(containerStart.y, containerFinish.y)
     }
 
-    function goThrough(knot, conditionHandler, currentId){
-
+    const ElemCoords = {
+        xStart: Math.min(elemStart.x, elemFinish.x),
+        yStart: Math.min(elemStart.y, elemFinish.y),
+        xFinish: Math.max(elemStart.x, elemFinish.x),
+        yFinish: Math.max(elemStart.y, elemFinish.y)
     }
-    let inputId = layer.id;
-
-    layer.content.map(elm => {
-        inputId =   checkKnot(elm, conditionHandler, inputId)
-       if(elm.children && elm.children.length){
-           elm.children.map(childElm => {
-               inputId = checkKnot(childElm, conditionHandler, inputId);
-           })
-       }
-    })
+    return [{x: ElemCoords.xStart, y: ElemCoords.yStart}, {x: ElemCoords.xStart, y: ElemCoords.yFinish},
+        {x: ElemCoords.xFinish, y: ElemCoords.yStart}, {x: ElemCoords.xFinish, y: ElemCoords.yFinish}
+    ].some(({x,y}) => x > ContCoords.xStart && x < ContCoords.xFinish && y > ContCoords.yStart && y < ContCoords.yFinish )
 }

@@ -1,3 +1,5 @@
+import {walkOverToDeepest, conditionInContainerHandler} from "../helpers"
+
 export default (state = { layers: [], activeLayer: null}, action) =>{
     switch(action.type) {
         case 'add-layer':
@@ -24,7 +26,9 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             }
             break;
         case 'add-element':
-            const tmpLayers = state.layers;
+            let tmpLayers = state.layers;
+            const targetLayer = tmpLayers.find(x => x.id === action.data.layerId);
+            const containerId =  walkOverToDeepest(targetLayer,conditionInContainerHandler, action.data );
             tmpLayers.find(x => x.id === action.data.layerId).content.push({
                 ...action.data
             })
