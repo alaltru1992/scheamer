@@ -63,7 +63,7 @@ function LayersContainer(props) {
 
     useEffect(() => {
         !!layers.layers.length && !!layers.layers.find(x => x.id = layers.activeLayer).content.length &&
-        innerContentChange(convertDataToView(layers.layers.find(x => x.id = layers.activeLayer).content, actualResolution))
+        innerContentChange(convertDataToView(layers.layers.find(x => x.id = layers.activeLayer).content, actualResolution, null))
     }, [layers]);
 
 

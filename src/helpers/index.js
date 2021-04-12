@@ -11,7 +11,7 @@ export function randomId(){
 function convertTypeView(data, resolution){
     switch(data.type){
         case "container":
-            return convertContainerView(data, resolution);
+            return convertContainerView(data, resolution, null);
         case "element":
             return convertElementView(data);
         case "modifier":
@@ -29,7 +29,10 @@ function convertContainerView(data, resolution){
         width: Math.abs(((data.finish.x - data.start.x)/resolution.width) * 100)+'%',
         height: Math.abs(((data.finish.y - data.start.y)/resolution.height) * 100)+'%'
     }
-    return <div style={style}></div>
+
+    return <div style={style}>
+         {!!data.children.length &&  convertDataToView(data.children, resolution) }
+    </div>
 }
 
 function convertElementView(data){
