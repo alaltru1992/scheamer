@@ -1,4 +1,4 @@
-import {walkOverToDeepest, conditionInContainerHandler} from "../helpers"
+import {walkOverToDeepest, conditionInContainerHandler, addToContainer} from "../helpers"
 
 export default (state = { layers: [], activeLayer: null}, action) =>{
     switch(action.type) {
@@ -29,9 +29,7 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             let tmpLayers = state.layers;
             const targetLayer = tmpLayers.find(x => x.id === action.data.layerId);
             const containerId =  walkOverToDeepest(targetLayer,conditionInContainerHandler, action.data );
-            tmpLayers.find(x => x.id === action.data.layerId).content.push({
-                ...action.data
-            })
+            addToContainer(tmpLayers, containerId, action.data)
 
             state = {
                 ...state,
@@ -39,7 +37,6 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
                     ...tmpLayers
                 ]
             }
-            debugger
             break;
         default:
           break;

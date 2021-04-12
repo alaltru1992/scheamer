@@ -82,3 +82,16 @@ export function conditionInContainerHandler({start: containerStart, finish: cont
         {x: ElemCoords.xFinish, y: ElemCoords.yStart}, {x: ElemCoords.xFinish, y: ElemCoords.yFinish}
     ].some(({x,y}) => x > ContCoords.xStart && x < ContCoords.xFinish && y > ContCoords.yStart && y < ContCoords.yFinish )
 }
+
+export function addToContainer(containers, addingId, elementToAdd){
+    containers.map(elm => {
+       if(elm.hasOwnProperty('content') || elm.hasOwnProperty('children')){
+           if(elm.id === addingId){
+               elm.hasOwnProperty('content') ? elm.content.push(elementToAdd) : elm.children.push(elementToAdd);
+           }
+           else{
+               addToContainer(elm.hasOwnProperty('content') ? elm.content: elm.children, addingId, elementToAdd);
+           }
+       }
+   })
+}
