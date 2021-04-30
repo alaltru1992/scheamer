@@ -11,4 +11,58 @@
   &.selected{
     cursor: crosshair;
   }
+  &-add-new-layer-form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: $main;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    z-index: 1;
+    &-label{
+      padding-left: 20px;
+      padding-right: 20px;
+      color: $light-font-color;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    &-name{
+      display: flex;
+      margin-top: 12px;
+      justify-content: center;
+      align-items: center;
+      padding-right: 12px;
+      padding-left: 12px;
+      &-label{
+        padding-left: 20px;
+        padding-right: 20px;
+        color: $light-font-color;
+        font-size: 14px;
+        text-align: center;
+      }
+
+    }
+    &-add{
+      margin-top: 24px;
+      margin-bottom: 12px;
+      margin-left: 35%;
+      background-color: #408eff;
+      color: #333333;
+      border-radius: 2px;
+      margin-right: 35%;
+    }
+    &-close{
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: url("../../res/images/close.svg") no-repeat;
+      transform: rotate(45deg);
+      cursor: pointer;
+    }
+  }
 }

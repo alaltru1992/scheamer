@@ -11,6 +11,9 @@ function LayersContainer(props) {
     const [actualResolution, resolutionChange] = useState(null)
     const [creatingObj, creatingObjHandler] = useState(null)
     const [innerContent, innerContentChange] = useState(null)
+    const [addElementFormOpened, addElementFormToggler] = useState(false)
+    const [currentClassName, currentClassNameInput] = useState(false)
+    const [addingData, addingDataSet] = useState({})
 
     const {layers, creation} = props;
 
@@ -30,13 +33,25 @@ function LayersContainer(props) {
 
     }
 
+    const addClassName = (event) =>{
+        currentClassNameInput(event.target.value)
+    }
+
+
+    const addElementToTree = () =>{
+        props.dispatch(addElement({...addingData, className: currentClassName}));
+        creatingObjHandler(null);
+        props.dispatch(dropCreation());
+        currentClassNameInput('');
+        addElementFormToggler(false);
+    }
+
+
     const finishCreation = ({clientX, clientY}, type) => {
-        if(type) {
+        if(type && !addElementFormOpened) {
             const x = clientX - 4;
             const y = clientY - 52;
-            props.dispatch(addElement({type, ...creatingObj, finish:{x,y}, layerId: layers.activeLayer}));
-            creatingObjHandler(null);
-            props.dispatch(dropCreation());
+           addingDataSet({type, ...creatingObj, finish:{x,y}, layerId: layers.activeLayer})
         }
     }
     useEffect(() => {
@@ -66,6 +81,25 @@ function LayersContainer(props) {
         innerContentChange(convertDataToView(layers.layers.find(x => x.id = layers.activeLayer).content, actualResolution, null))
     }, [layers]);
 
+    useEffect(() => {
+        if(Object.keys(addingData).length){
+            addElementFormToggler(true);
+        }
+    }, [addingData]);
+
+    const addElementForm = !!addElementFormOpened &&
+        <div className={"layers-container-add-new-layer-form"}>
+            <div onClick={() => addElementFormToggler(false)} className={"layers-container-add-new-layer-form-close"}/>
+            <span className={"layers-container-add-new-layer-form-label"}>Добавление элемента</span>
+            <div className={"layers-container-add-new-layer-form-name"}>
+                <span className={"layers-container-add-new-layer-form-name-label"}>Введите название класса</span>
+                <input onChange={addClassName} className={"layers-container-add-new-layer-form-name-input"}/>
+            </div>
+            <button onClick={() => addElementToTree()} className={"layers-container-add-new-layer-form-add"}>
+                Добавить элемент
+            </button>
+        </div>
+
 
     return (
         <div onPointerDown={(event) => startCreation(event, creation.creatingObject)}
@@ -75,6 +109,7 @@ function LayersContainer(props) {
             {
                 innerContent
             }
+            {addElementForm}
         </div>
     );
 }

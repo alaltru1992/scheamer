@@ -17,7 +17,7 @@ function Header(props) {
         toggleLists(list);
         props.dispatch(dispatchFunction(value))
     }
-    const inputHandler = event => {
+    const inputLayerHandler = event => {
         newLayerNameInput(event.target.value);
     }
 
@@ -45,12 +45,13 @@ function Header(props) {
             <span className={"header-add-new-layer-form-label"}>Добавление слоя</span>
             <div className={"header-add-new-layer-form-name"}>
                 <span className={"header-add-new-layer-form-name-label"}>Введите название</span>
-                <input onChange={inputHandler} className={"header-add-new-layer-form-name-input"}/>
+                <input onChange={inputLayerHandler} className={"header-add-new-layer-form-name-input"}/>
             </div>
             <button onClick={() => addLayerHandler(newLayerName)} className={"header-add-new-layer-form-add"}>
-                Добавить
+                Добавить слой
             </button>
         </div>
+
 
     const existingLayer =  !!layers.layers.length &&
         <div ref={layersList} className={"header-elements-container"}>
@@ -76,7 +77,7 @@ function Header(props) {
                     <div className={"header-elements-container-img" + (listOpend === "selector" ? "" : " open")} onClick={() => toggleLists("selector")}/>
                     <ul className={"header-elements-container_list" + (listOpend === "selector" ? "" : " closed") }>
                         <li className={"header-elements-container_list_element" + ("container" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "container", selectAddingElement)}>Контейнер</li>
-                        <li className={"header-elements-container_list_element" + ("element" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "element", selectAddingElement)}>Элемент</li>
+                        <li className={"header-elements-container_list_element" + ("element" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "element", selectAddingElement)} >Элемент</li>
                         <li className={"header-elements-container_list_element" + ("modifier" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "modifier", selectAddingElement)}>Модификатор</li>
                     </ul>
                 </div>
