@@ -33,9 +33,14 @@ function Header(props) {
         }
     }
 
+
     const [listOpend, listToggler] = useState(null);
     const [addLayerFormOpened, addLayerFormToggler] = useState(false);
     const [newLayerName, newLayerNameInput] = useState('');
+
+    useEffect(() =>{
+       // console.log(layers.layers)
+    },[layers])
 
     useOutsideAlerter([elements, resolutionList, layersList], () => listToggler(null));
 
@@ -52,16 +57,15 @@ function Header(props) {
             </button>
         </div>
 
-
     const existingLayer =  !!layers.layers.length &&
         <div ref={layersList} className={"header-elements-container"}>
             <span>Слои</span>
             <div className={"header-elements-container-img" + (listOpend === "existing-layers" ? "" : " open")} onClick={() => toggleLists("existing-layers")}/>
             <ul className={"header-elements-container_list" + (listOpend === "existing-layers" ? "" : " closed") }>
                 {
-                    layers.layers.map(elm =>{
+                    layers.layers.map(({name, layerId},i) =>{
                         return(
-                            <li key={elm.id} className={"header-elements-container_list_element" + (elm.id === layers.activeLayer ? " selected": "")} onClick={() => elementSelect("existing-layers", elm.id, switchLayer)}>{elm.name}</li>
+                            <li key={layerId}  className={"header-elements-container_list_element" + (layerId === layers.activeLayer ? " selected": "")} onClick={() => elementSelect("existing-layers", layerId, switchLayer)}>{name}</li>
                         )
                     })
                 }

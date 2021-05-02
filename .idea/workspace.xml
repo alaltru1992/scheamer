@@ -19,13 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="adding elements view">
+    <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="correct containers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ac/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LayersContainer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayersContainer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LayersContainer/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayersContainer/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middlewares/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/layers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/layers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +94,7 @@
       <workItem from="1619166118059" duration="2026000" />
       <workItem from="1619423658649" duration="602000" />
       <workItem from="1619521082866" duration="237000" />
-      <workItem from="1619812118223" duration="4107000" />
+      <workItem from="1619812118223" duration="12331000" />
     </task>
     <task id="LOCAL-00001" summary="-init">
       <created>1617042523357</created>
@@ -238,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618257827375</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="correct containers">
+      <created>1619816325459</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1619816325459</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +274,8 @@
     <MESSAGE value="finding containers intersection &amp;&amp; finding deepest container" />
     <MESSAGE value="adding elements to proper container" />
     <MESSAGE value="adding elements view" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding elements view" />
+    <MESSAGE value="correct containers" />
+    <option name="LAST_COMMIT_MESSAGE" value="correct containers" />
   </component>
   <component name="WindowStateProjectService">
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617224532526">
@@ -284,10 +290,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1617041953260" />
-    <state x="361" y="132" key="Vcs.Push.Dialog.v2" timestamp="1618257828458">
+    <state x="361" y="132" key="Vcs.Push.Dialog.v2" timestamp="1619816327410">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="132" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618257828458" />
+    <state x="361" y="132" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1619816327410" />
     <state x="478" y="145" width="579" height="534" key="find.popup" timestamp="1619813948423">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

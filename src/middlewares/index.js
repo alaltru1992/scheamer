@@ -9,12 +9,12 @@ export default store => next => action =>{
             data:{
                 layer: {
                     ...action.data.layer,
-                    id: randomId()
+                    layerId: randomId()
                 }
             }
         }
         next(action)
-        next(switchLayer(action.data.layer.id))
+        //next(switchLayer(action.data.layer.id))
     }
     else if(action.type === "add-element") {
         action = {

@@ -3,19 +3,20 @@ import {walkOverToDeepest, conditionInContainerHandler, addToContainer} from "..
 export default (state = { layers: [], activeLayer: null}, action) =>{
     switch(action.type) {
         case 'add-layer':
+            const curLayers = [...state.layers, action.data.layer];
             state = {
                 ...state,
                 layers:[
-                    ...state.layers,
-                    action.data.layer
-                ]
+                    ...curLayers
+                ],
+                activeLayer: action.data.layer.layerId
             }
             break;
 
         case 'remove-layer':
             state = {
                 ...state,
-                layers : [... state.layers.splice(state.indexOf(state.layers.find(({id}) => id === action.data.deleteId)), 1)]
+                layers : [... state.layers.splice(state.indexOf(state.layers.find(({layerId}) => layerId === action.data.deleteId)), 1)]
             }
             break;
 
@@ -27,7 +28,7 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             break;
         case 'add-element':
             let tmpLayers = state.layers;
-            const targetLayer = tmpLayers.find(x => x.id === action.data.layerId);
+            const targetLayer = tmpLayers.find(x => x.layerId === action.data.layerId);
             const containerId =  walkOverToDeepest(targetLayer,conditionInContainerHandler, action.data );
             addToContainer(tmpLayers, containerId, action.data)
 
