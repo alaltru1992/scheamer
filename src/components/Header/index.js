@@ -3,6 +3,7 @@ import "./style.scss"
 import {useState, useEffect, useRef} from 'react'
 import {selectAddingElement, selectResolution, switchLayer, addLayer} from "../../ac"
 import useOutsideAlerter from '../../hooks/useOutsideAlerter'
+import classNames from "classnames";
 
 
 function Header(props) {
@@ -38,9 +39,6 @@ function Header(props) {
     const [addLayerFormOpened, addLayerFormToggler] = useState(false);
     const [newLayerName, newLayerNameInput] = useState('');
 
-    useEffect(() =>{
-       // console.log(layers.layers)
-    },[layers])
 
     useOutsideAlerter([elements, resolutionList, layersList], () => listToggler(null));
 
@@ -60,12 +58,12 @@ function Header(props) {
     const existingLayer =  !!layers.layers.length &&
         <div ref={layersList} className={"header-elements-container"}>
             <span>Слои</span>
-            <div className={"header-elements-container-img" + (listOpend === "existing-layers" ? "" : " open")} onClick={() => toggleLists("existing-layers")}/>
-            <ul className={"header-elements-container_list" + (listOpend === "existing-layers" ? "" : " closed") }>
+            <div className = {classNames("header-elements-container-img", {"open" : listOpend === "existing-layers"})}  onClick={() => toggleLists("existing-layers")}/>
+            <ul className = {classNames("header-elements-container_list" ,{"closed": listOpend !== "existing-layers"} ) }>
                 {
                     layers.layers.map(({name, id},i) =>{
                         return(
-                            <li key={id}  className={"header-elements-container_list_element" + (id === layers.activeLayer ? " selected": "")} onClick={() => elementSelect("existing-layers", id, switchLayer)}>{name}</li>
+                            <li key={id} className={classNames("header-elements-container_list_element", {"selected": id === layers.activeLayer})}   onClick={() => elementSelect("existing-layers", id, switchLayer)}>{name}</li>
                         )
                     })
                 }
@@ -76,22 +74,22 @@ function Header(props) {
     return (
         <div className={"header"}>
             <div ref={elements} className={"header-containers-container"}>
-                <div className={"header-elements-container" + (!layers.layers.length ? ' not-active': '')}>
+                <div className={classNames("header-elements-container", {'not-active' : !layers.layers.length})} >
                     <span>Добавить элемент</span>
-                    <div className={"header-elements-container-img" + (listOpend === "selector" ? "" : " open")} onClick={() => toggleLists("selector")}/>
-                    <ul className={"header-elements-container_list" + (listOpend === "selector" ? "" : " closed") }>
-                        <li className={"header-elements-container_list_element" + ("container" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "container", selectAddingElement)}>Контейнер</li>
-                        <li className={"header-elements-container_list_element" + ("element" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "element", selectAddingElement)} >Элемент</li>
-                        <li className={"header-elements-container_list_element" + ("modifier" === creation.creatingObject ? " selected": "")} onClick={() => elementSelect("selector", "modifier", selectAddingElement)}>Модификатор</li>
+                    <div className={classNames("header-elements-container-img", {"open": listOpend === "selector"})}  onClick={() => toggleLists("selector")}/>
+                    <ul className={classNames("header-elements-container_list", {"closed": listOpend !== "selector"})}>
+                        <li className={classNames("header-elements-container_list_element", {"selected": "container" === creation.creatingObject})}  onClick={() => elementSelect("selector", "container", selectAddingElement)}>Контейнер</li>
+                        <li className={classNames("header-elements-container_list_element", {"selected": "element" === creation.creatingObject})}  onClick={() => elementSelect("selector", "element", selectAddingElement)} >Элемент</li>
+                        <li className={classNames("header-elements-container_list_element", {"selected": "modifier" === creation.creatingObject})}  onClick={() => elementSelect("selector", "modifier", selectAddingElement)}>Модификатор</li>
                     </ul>
                 </div>
                 <div ref={resolutionList} className={"header-elements-container"}>
                     <span>Выбрать разрешение</span>
-                    <div className={"header-elements-container-img" + (listOpend === "resolution" ? "" : " open")} onClick={() => toggleLists("resolution")}/>
-                    <ul className={"header-elements-container_list" + (listOpend === "resolution" ? "" : " closed") }>
-                        <li className={"header-elements-container_list_element" + ("1920x1080" === resolution.resolution ? " selected": "")} onClick={() => elementSelect("resolution", "1920x1080", selectResolution)}>1920x1080</li>
-                        <li className={"header-elements-container_list_element" + ("1280x720" === resolution.resolution ? " selected": "")} onClick={() => elementSelect("resolution", "1280x720", selectResolution)}>1280x720</li>
-                        <li className={"header-elements-container_list_element" + ("1024x576" === resolution.resolution ? " selected": "")} onClick={() => elementSelect("resolution", "1024x576", selectResolution)}>1024x576</li>
+                    <div className={classNames("header-elements-container-img", {"open": listOpend === "resolution"})}  onClick={() => toggleLists("resolution")}/>
+                    <ul className={classNames("header-elements-container_list", {"closed": listOpend !== "resolution"})} >
+                        <li className={classNames("header-elements-container_list_element", {"selected": "1920x1080" === resolution.resolution})}  onClick={() => elementSelect("resolution", "1920x1080", selectResolution)}>1920x1080</li>
+                        <li className={classNames("header-elements-container_list_element", {"selected": "1280x720" === resolution.resolution})}  onClick={() => elementSelect("resolution", "1280x720", selectResolution)}>1280x720</li>
+                        <li className={classNames("header-elements-container_list_element", {"selected": "1024x576" === resolution.resolution})}   onClick={() => elementSelect("resolution", "1024x576", selectResolution)}>1024x576</li>
                     </ul>
                 </div>
                 {existingLayer}

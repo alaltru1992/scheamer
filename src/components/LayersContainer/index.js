@@ -4,6 +4,7 @@ import "./style.scss"
 import { ResizeObserver } from '@juggle/resize-observer';
 import {addElement, dropCreation} from "../../ac"
 import {convertDataToView} from "../../helpers"
+import classNames from "classnames";
 
 function LayersContainer(props) {
 
@@ -105,7 +106,7 @@ function LayersContainer(props) {
         <div onPointerDown={(event) => startCreation(event, creation.creatingObject)}
              onPointerUp={(event) => finishCreation(event,creation.creatingObject)}
              onPointerMove={(event) => creationInProgress(event, creation.creatingObject)}
-             ref={layerContainer} className={"layers-container" + (creation.creatingObject ? " selected" : "")}>
+             ref={layerContainer} className={classNames("layers-container", {"selected": creation.creatingObject})} >
             {
                 innerContent
             }
