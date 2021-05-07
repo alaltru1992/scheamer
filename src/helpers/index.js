@@ -13,9 +13,35 @@ function convertTypeView(data, resolution, customParentContainer){
         case "container":
             return convertContainerView(data, resolution, customParentContainer);
         case "element":
-            return convertElementView(data);
+            return convertContainerView(data, resolution, customParentContainer);
         case "modifier":
             return convertModifierView(data);
+    }
+}
+
+function partesStyles(type, coordes){
+    const {LEFT, TOP, WIDTH, HEIGHT} = coordes
+    if(type === "container"){
+        return {
+            border:  '1px solid #000',
+            position: 'absolute',
+            display: 'flex',
+            left: LEFT + '%',
+            top: TOP + '%',
+            width: WIDTH+'%',
+            height: HEIGHT+'%'
+        }
+    }
+    else if(type === "element"){
+        return {
+            border:  '1px solid red',
+            position: 'absolute',
+            display: 'flex',
+            left: LEFT + '%',
+            top: TOP + '%',
+            width: WIDTH+'%',
+            height: HEIGHT+'%'
+        }
     }
 }
 
@@ -44,18 +70,10 @@ function convertContainerView(data, resolution, customParentContainer){
          WIDTH = Math.abs(((data.finish.x - data.start.x) / resolution.width) * 100);
          HEIGHT = Math.abs(((data.finish.y - data.start.y) / resolution.height) * 100);
     }
-    const style =  {
-        border:  '1px solid #000',
-        position: 'absolute',
-        display: 'flex',
-        left: LEFT + '%',
-        top: TOP + '%',
-        width: WIDTH+'%',
-        height: HEIGHT+'%'
-    }
+    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT})
 
     return <div id={data.id} className={data.className} style={style}>
-         {!!data.children.length &&  convertDataToView(data.children, resolution, {start: data.start, finish: data.finish}) }
+         {!!data.children && !!data.children.length &&  convertDataToView(data.children, resolution, {start: data.start, finish: data.finish}) }
     </div>
 }
 

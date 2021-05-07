@@ -51,7 +51,7 @@ function LayersContainer(props) {
         if(type && !addElementFormOpened) {
             const x = clientX - 4;
             const y = clientY - 52;
-           addingDataSet({type, ...creatingObj, finish:{x,y}, layerId: layers.activeLayer})
+           addingDataSet({type, ...creatingObj, finish:{x,y}, id: layers.activeLayer})
         }
     }
     useEffect(() => {
@@ -78,7 +78,7 @@ function LayersContainer(props) {
 
     useEffect(() => {
         !!layers.layers.length &&
-        innerContentChange(convertDataToView(layers.layers.find(x => x.layerId === layers.activeLayer).content, actualResolution, null))
+        innerContentChange(convertDataToView(layers.layers.find(x => x.id === layers.activeLayer).content, actualResolution, null))
     }, [layers]);
 
     useEffect(() => {

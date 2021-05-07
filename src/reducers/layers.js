@@ -9,14 +9,14 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
                 layers:[
                     ...curLayers
                 ],
-                activeLayer: action.data.layer.layerId
+                activeLayer: action.data.layer.id
             }
             break;
 
         case 'remove-layer':
             state = {
                 ...state,
-                layers : [... state.layers.splice(state.indexOf(state.layers.find(({layerId}) => layerId === action.data.deleteId)), 1)]
+                layers : [... state.layers.splice(state.indexOf(state.layers.find(({id}) => id === action.data.deleteId)), 1)]
             }
             break;
 
@@ -28,8 +28,8 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             break;
         case 'add-element':
             let tmpLayers = state.layers;
-            const targetLayer = tmpLayers.find(x => x.layerId === action.data.layerId);
-            const containerId =  walkOverToDeepest(targetLayer,conditionInContainerHandler, action.data );
+            const targetLayer = tmpLayers.find(x => x.id === state.activeLayer);
+            const containerId =  walkOverToDeepest(targetLayer,conditionInContainerHandler, action.data,  targetLayer.id);
             addToContainer(tmpLayers, containerId, action.data)
 
             state = {

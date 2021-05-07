@@ -63,9 +63,9 @@ function Header(props) {
             <div className={"header-elements-container-img" + (listOpend === "existing-layers" ? "" : " open")} onClick={() => toggleLists("existing-layers")}/>
             <ul className={"header-elements-container_list" + (listOpend === "existing-layers" ? "" : " closed") }>
                 {
-                    layers.layers.map(({name, layerId},i) =>{
+                    layers.layers.map(({name, id},i) =>{
                         return(
-                            <li key={layerId}  className={"header-elements-container_list_element" + (layerId === layers.activeLayer ? " selected": "")} onClick={() => elementSelect("existing-layers", layerId, switchLayer)}>{name}</li>
+                            <li key={id}  className={"header-elements-container_list_element" + (id === layers.activeLayer ? " selected": "")} onClick={() => elementSelect("existing-layers", id, switchLayer)}>{name}</li>
                         )
                     })
                 }

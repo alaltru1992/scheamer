@@ -44,12 +44,12 @@ export function addLayer(value){
     }
 }
 
-export function addElement({type, start, finish, layerId, className}){
+export function addElement({type, start, finish, id, className}){
     let data = {
         type,
         start,
         finish,
-        layerId,
+        id,
         className,
         properties:[
 

@@ -21,8 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="correct containers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ac/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LayersContainer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayersContainer/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middlewares/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/layers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/layers.js" afterDir="false" />
     </list>
@@ -56,7 +58,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../work/gamex-web-uikit-react" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
@@ -95,6 +97,9 @@
       <workItem from="1619423658649" duration="602000" />
       <workItem from="1619521082866" duration="237000" />
       <workItem from="1619812118223" duration="12331000" />
+      <workItem from="1620206104310" duration="17000" />
+      <workItem from="1620301158666" duration="1196000" />
+      <workItem from="1620378795799" duration="8040000" />
     </task>
     <task id="LOCAL-00001" summary="-init">
       <created>1617042523357</created>
@@ -282,10 +287,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1617224532526" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1619168578415">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1620378822888">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1619168578415" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1620378822888" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1617041953260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -294,9 +299,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="132" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1619816327410" />
-    <state x="478" y="145" width="579" height="534" key="find.popup" timestamp="1619813948423">
+    <state x="478" y="145" width="579" height="534" key="find.popup" timestamp="1620406282051">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="478" y="145" width="579" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1619813948423" />
+    <state x="478" y="145" width="579" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1620406282051" />
   </component>
 </project>

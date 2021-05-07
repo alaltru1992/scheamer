@@ -9,7 +9,7 @@ export default store => next => action =>{
             data:{
                 layer: {
                     ...action.data.layer,
-                    layerId: randomId()
+                    id: randomId()
                 }
             }
         }
