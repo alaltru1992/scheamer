@@ -26,6 +26,12 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
                 activeLayer: action.data.activeLayer
             }
             break;
+        case 'set-properties':
+            state = {
+                ...state,
+                activeLayer: action.data.activeLayer
+            }
+            break;
         case 'add-element':
             let tmpLayers = state.layers;
             const targetLayer = tmpLayers.find(x => x.id === state.activeLayer);

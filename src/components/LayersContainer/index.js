@@ -32,7 +32,7 @@ function convertContainerView(data, customParentContainer){
         WIDTH = Math.abs(((data.finish.x - data.start.x) / data.actualResolution.width) * 100);
         HEIGHT = Math.abs(((data.finish.y - data.start.y) / data.actualResolution.height) * 100);
     }
-    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT})
+    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT}, data.properties)
 
 
     return ( <InnerContent

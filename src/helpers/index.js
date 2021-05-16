@@ -19,7 +19,7 @@ function convertTypeView(data,displayHTML, customParentContainer){
     }
 }
 
-export function partesStyles(type, coordes){
+export function partesStyles(type, coordes, properties){
     const {LEFT, TOP, WIDTH, HEIGHT} = coordes
     if(type === "container"){
         return {
