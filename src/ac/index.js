@@ -44,13 +44,14 @@ export function addLayer(value){
     }
 }
 
-export function addElement({type, start, finish, id, className}){
+export function addElement({type, start, finish, id, className, actualResolution}){
     let data = {
         type,
         start,
         finish,
         id,
         className,
+        actualResolution,
         properties:[
 
         ]

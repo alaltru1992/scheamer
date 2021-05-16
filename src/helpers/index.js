@@ -8,18 +8,18 @@ export function randomId(){
     return str
 }
 
-function convertTypeView(data, resolution, customParentContainer){
+function convertTypeView(data,displayHTML, customParentContainer){
     switch(data.type){
         case "container":
-            return convertContainerView(data, resolution, customParentContainer);
+            return displayHTML(data, customParentContainer);
         case "element":
-            return convertContainerView(data, resolution, customParentContainer);
+            return displayHTML(data, customParentContainer);
         case "modifier":
-            return convertModifierView(data);
+            return displayHTML(data);
     }
 }
 
-function partesStyles(type, coordes){
+export function partesStyles(type, coordes){
     const {LEFT, TOP, WIDTH, HEIGHT} = coordes
     if(type === "container"){
         return {
@@ -45,49 +45,14 @@ function partesStyles(type, coordes){
     }
 }
 
-function convertContainerView(data, resolution, customParentContainer){
-    let startX = data.start.x;
-    let startY = data.start.y;
-    let finishX = data.finish.x;
-    let finishY = data.finish.y;
-    let LEFT;
-    let TOP;
-    let WIDTH;
-    let HEIGHT;
-    if(customParentContainer){
-        const parentStartX = customParentContainer.start.x;
-        const parentStartY = customParentContainer.start.y;
-        const parentFinishX = customParentContainer.finish.x;
-        const parentFinishY = customParentContainer.finish.y;
-        LEFT = startX < finishX ? ((( startX - parentStartX) / (parentFinishX - parentStartX)) * 100) : (((finishX - parentStartX) / (parentFinishX - parentStartX)) * 100);
-        TOP = startY < finishY ? (((startY - parentStartY) / (parentFinishY - parentStartY)) * 100) : (((finishY - parentStartY) / (parentFinishY - parentStartY)) * 100);
-        WIDTH = Math.abs(((data.finish.x - data.start.x) / (parentFinishX - parentStartX)) * 100);
-        HEIGHT =  Math.abs(((data.finish.y - data.start.y) / (parentFinishY - parentStartY)) * 100);
-    }
-    else {
-         LEFT = startX < finishX ? (((startX / resolution.width) * 100)) : (((finishX / resolution.width) * 100));
-         TOP = startY < finishY ? (((startY / resolution.height) * 100)) : (((finishY / resolution.height) * 100));
-         WIDTH = Math.abs(((data.finish.x - data.start.x) / resolution.width) * 100);
-         HEIGHT = Math.abs(((data.finish.y - data.start.y) / resolution.height) * 100);
-    }
-    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT})
-
-    return <div id={data.id} className={data.className} style={style}>
-         {!!data.children && !!data.children.length &&  convertDataToView(data.children, resolution, {start: data.start, finish: data.finish}) }
-    </div>
-}
-
-function convertElementView(data){
-
-}
 
 function convertModifierView(data){
 
 }
 
-export function convertDataToView(data, resolution, customParentContainer = null){
+export function convertDataToView(data, displayHTML, customParentContainer = null){
     return[
-        data.map( x => convertTypeView(x, resolution, customParentContainer))
+        data.map( x => convertTypeView(x,displayHTML, customParentContainer))
     ]
 }
 
@@ -108,13 +73,13 @@ function walkTree(content, conditionHandler, element, initialId){
     return tmpId
 }
 
-export function conditionInContainerHandler({start: containerStart, finish: containerFinish, type}, {start: elemStart, finish: elemFinish}){
+export function conditionInContainerHandler({start: containerStart, finish: containerFinish, type , actualResolution: containerResolution}, {start: elemStart, finish: elemFinish, actualResolution: elementResolution}){
     if (type !== "container") return false
     const ContCoords = {
-        xStart: Math.min(containerStart.x, containerFinish.x),
-        yStart: Math.min(containerStart.y, containerFinish.y),
-        xFinish: Math.max(containerStart.x, containerFinish.x),
-        yFinish: Math.max(containerStart.y, containerFinish.y)
+        xStart: Math.min(containerStart.x, containerFinish.x) * (elementResolution.width/containerResolution.width),
+        yStart: Math.min(containerStart.y, containerFinish.y) * (elementResolution.height/containerResolution.height),
+        xFinish: Math.max(containerStart.x, containerFinish.x) * (elementResolution.width/containerResolution.width),
+        yFinish: Math.max(containerStart.y, containerFinish.y) * (elementResolution.height/containerResolution.height)
     }
 
     const ElemCoords = {

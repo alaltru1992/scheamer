@@ -1,17 +1,52 @@
 import {connect} from "react-redux";
 import {useState, useEffect, useRef} from 'react'
+import React from "react";
 import "./style.scss"
-import { ResizeObserver } from '@juggle/resize-observer';
 import {addElement, dropCreation} from "../../ac"
-import {convertDataToView} from "../../helpers"
+import {convertDataToView, partesStyles} from "../../helpers"
 import classNames from "classnames";
+import InnerContent from "../InnerContentComponent";
+
+function convertContainerView(data, customParentContainer){
+    let startX = data.start.x;
+    let startY = data.start.y;
+    let finishX = data.finish.x;
+    let finishY = data.finish.y;
+    let LEFT;
+    let TOP;
+    let WIDTH;
+    let HEIGHT;
+    if(customParentContainer){
+        const parentStartX = customParentContainer.start.x * (data.actualResolution.width / customParentContainer.actualResolution.width);
+        const parentStartY = customParentContainer.start.y * (data.actualResolution.height / customParentContainer.actualResolution.height);
+        const parentFinishX = customParentContainer.finish.x * (data.actualResolution.width / customParentContainer.actualResolution.width);
+        const parentFinishY = customParentContainer.finish.y * (data.actualResolution.height / customParentContainer.actualResolution.height);
+        LEFT = startX < finishX ? ((( startX - parentStartX) / (parentFinishX - parentStartX)) * 100) : (((finishX - parentStartX) / (parentFinishX - parentStartX)) * 100);
+        TOP = startY < finishY ? (((startY - parentStartY) / (parentFinishY - parentStartY)) * 100) : (((finishY - parentStartY) / (parentFinishY - parentStartY)) * 100);
+        WIDTH = Math.abs(((data.finish.x - data.start.x) / (parentFinishX - parentStartX)) * 100);
+        HEIGHT =  Math.abs(((data.finish.y - data.start.y) / (parentFinishY - parentStartY)) * 100);
+    }
+    else {
+        LEFT = startX < finishX ? (((startX / data.actualResolution.width) * 100)) : (((finishX / data.actualResolution.width) * 100));
+        TOP = startY < finishY ? (((startY / data.actualResolution.height) * 100)) : (((finishY / data.actualResolution.height) * 100));
+        WIDTH = Math.abs(((data.finish.x - data.start.x) / data.actualResolution.width) * 100);
+        HEIGHT = Math.abs(((data.finish.y - data.start.y) / data.actualResolution.height) * 100);
+    }
+    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT})
+
+
+    return ( <InnerContent
+        data={data}  style={style} convertDataToView = {convertDataToView} convertContainerView={convertContainerView}
+    />)
+    // return <div id={data.id} className={data.className} style={style}>
+    //     {!!data.children && !!data.children.length &&  convertDataToView(data.children, resolution,convertContainerView, {start: data.start, finish: data.finish}) }
+    // </div>
+}
 
 function LayersContainer(props) {
 
     const layerContainer = useRef(null)
-    const [actualResolution, resolutionChange] = useState(null)
     const [creatingObj, creatingObjHandler] = useState(null)
-    const [innerContent, innerContentChange] = useState(null)
     const [addElementFormOpened, addElementFormToggler] = useState(false)
     const [currentClassName, currentClassNameInput] = useState(false)
     const [addingData, addingDataSet] = useState({})
@@ -30,9 +65,6 @@ function LayersContainer(props) {
         }
     }
 
-    const creationInProgress = ( {clientX, clientY}, type) => {
-
-    }
 
     const addClassName = (event) =>{
         currentClassNameInput(event.target.value)
@@ -40,13 +72,20 @@ function LayersContainer(props) {
 
 
     const addElementToTree = () =>{
-        props.dispatch(addElement({...addingData, className: currentClassName}));
+        props.dispatch(addElement({...addingData, actualResolution: getActualResolution(), className: currentClassName}));
         creatingObjHandler(null);
         props.dispatch(dropCreation());
         currentClassNameInput('');
         addElementFormToggler(false);
     }
 
+
+    const getActualResolution = () =>{
+        return {
+            width: Math.floor((document.documentElement.clientWidth ) * 0.8) ,
+            height: Math.floor((document.documentElement.clientWidth ) * 0.8 * 9 / 16)
+        }
+    }
 
     const finishCreation = ({clientX, clientY}, type) => {
         if(type && !addElementFormOpened) {
@@ -55,21 +94,7 @@ function LayersContainer(props) {
            addingDataSet({type, ...creatingObj, finish:{x,y}, id: layers.activeLayer})
         }
     }
-    useEffect(() => {
-        const ro = new ResizeObserver((entries, observer) => {
-            resolutionChange({
-                width: Math.floor((document.documentElement.clientWidth ) * 0.8) ,
-                height: Math.floor((document.documentElement.clientWidth ) * 0.8 * 9 / 16)
-            })
-        });
-        const observerOptions = {
-            box: 'border-box'
-        };
-        ro.observe(document.documentElement, observerOptions)
-        return function(){
-            ro.unobserve(document.documentElement)
-        }
-    }, []);
+
 
     useEffect(() => {
         if(creation.creatingObject){
@@ -77,10 +102,7 @@ function LayersContainer(props) {
         }
     }, [creation]);
 
-    useEffect(() => {
-        !!layers.layers.length &&
-        innerContentChange(convertDataToView(layers.layers.find(x => x.id === layers.activeLayer).content, actualResolution, null))
-    }, [layers]);
+
 
     useEffect(() => {
         if(Object.keys(addingData).length){
@@ -105,10 +127,9 @@ function LayersContainer(props) {
     return (
         <div onPointerDown={(event) => startCreation(event, creation.creatingObject)}
              onPointerUp={(event) => finishCreation(event,creation.creatingObject)}
-             onPointerMove={(event) => creationInProgress(event, creation.creatingObject)}
              ref={layerContainer} className={classNames("layers-container", {"selected": creation.creatingObject})} >
             {
-                innerContent
+                !!layers.layers.length && convertDataToView(layers.layers.find(x => x.id === layers.activeLayer).content, convertContainerView, null)
             }
             {addElementForm}
         </div>
