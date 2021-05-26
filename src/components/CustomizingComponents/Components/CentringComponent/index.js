@@ -9,11 +9,7 @@ function PositionComponent(props) {
 
 
     return (
-         <div className="positioning_container">
-             <div className="frame">
-
-             </div>
-         </div>
+         <div className="customizing_container"></div>
     );
 }
 
