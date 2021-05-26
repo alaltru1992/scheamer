@@ -6,6 +6,7 @@ import {addElement, dropCreation} from "../../ac"
 import {convertDataToView, partesStyles} from "../../helpers"
 import classNames from "classnames";
 import InnerContent from "../InnerContentComponent";
+import CustomizingComponent from "../CustomizingComponents"
 
 function convertContainerView(data, customParentContainer){
     let startX = data.start.x;
@@ -51,7 +52,7 @@ function LayersContainer(props) {
     const [currentClassName, currentClassNameInput] = useState(false)
     const [addingData, addingDataSet] = useState({})
 
-    const {layers, creation} = props;
+    const {layers, creation, customizing} = props;
 
     const startCreation = ({clientX, clientY}, type) => {
         if(type) {
@@ -132,6 +133,7 @@ function LayersContainer(props) {
                 !!layers.layers.length && convertDataToView(layers.layers.find(x => x.id === layers.activeLayer).content, convertContainerView, null)
             }
             {addElementForm}
+            {customizing.active && <CustomizingComponent/>}
         </div>
     );
 }
@@ -139,7 +141,8 @@ function LayersContainer(props) {
 const mapStateToProps = state =>({
     layers: state.layers,
     creation: state.creation,
-    resolution: state.resolution
+    resolution: state.resolution,
+    customizing: state.customizing
 })
 
 export default connect(mapStateToProps)(LayersContainer);

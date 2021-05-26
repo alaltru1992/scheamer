@@ -19,14 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="classnames">
-      <change afterPath="$PROJECT_DIR$/src/components/InnerContentComponent/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/InnerContentComponent/style.scss" afterDir="false" />
+    <list default="true" id="d44632ab-3901-474e-819b-e3b086794e0c" name="Default Changelist" comment="customizable">
+      <change afterPath="$PROJECT_DIR$/src/components/CustomizingComponents/Components/PositionComponent/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CustomizingComponents/Components/PositionComponent/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CustomizingComponents/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/customizing.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ac/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ac/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InnerComponents/Container/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CustomizingComponents/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomizingComponents/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InnerContentComponent/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InnerContentComponent/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LayersContainer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayersContainer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +39,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="SCSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -308,6 +311,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1620720730143" />
+    <state x="579" y="115" key="RollbackChangesDialog" timestamp="1622046870291">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="579" y="115" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1622046870291" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1617041953260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

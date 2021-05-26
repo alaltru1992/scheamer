@@ -67,3 +67,16 @@ export function addElement({type, start, finish, id, className, actualResolution
         data
     }
 }
+
+export function activateCustom(data){
+    return{
+        type: "activate-custom",
+        data
+    }
+}
+
+export function disActivateCustom(){
+    return{
+        type: "disactivate-custom"
+    }
+}

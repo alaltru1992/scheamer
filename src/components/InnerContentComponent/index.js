@@ -2,10 +2,13 @@ import React from "react";
 import {useState, useEffect, useRef} from 'react'
 import "./style.scss"
 import useOutsideAlert from "../../hooks/useOutsideAlerter"
+import {connect} from "react-redux";
+import {activateCustom} from "../../ac"
+import layers from "../../reducers/layers";
 
 
-
-function InnerContent({data, resolution, style, convertDataToView, convertContainerView}) {
+function InnerContent(props) {
+    const {data, resolution, style, convertDataToView, convertContainerView, dispatch, layers} = props;
 
     const modifierEnter = () =>{
         timeout && timeoutToggler(clearTimeout(timeout))
@@ -31,6 +34,10 @@ function InnerContent({data, resolution, style, convertDataToView, convertContai
         timeout && timeoutToggler(clearTimeout(timeout))
     }
 
+    const customizeActivation = type =>{
+        dispatch(activateCustom({type, id: data.id, layerId: layers.activeLayer}))
+    }
+
     const [modifyElementOpened, modifyElementToggler] = useState(false);
     const [timeout, timeoutToggler] = useState(false);
     const [propertiesSelector, propertiesToggler] = useState(false)
@@ -41,11 +48,11 @@ function InnerContent({data, resolution, style, convertDataToView, convertContai
 
 const listSelector =
     <ul className="properties_list">
-        <li className="properties_list_element">Размеры</li>
-        <li className="properties_list_element">Поведение</li>
-        <li className="properties_list_element">Декорация</li>
-        <li className="properties_list_element">Форма</li>
-        <li className="properties_list_element">Центрирование</li>
+        <li onClick={() => customizeActivation('size')} className="properties_list_element">Размеры</li>
+        <li onClick={() => customizeActivation('behaviour')} className="properties_list_element">Поведение</li>
+        <li onClick={() => customizeActivation('decoration')} className="properties_list_element">Декорация</li>
+        <li onClick={() => customizeActivation('form')} className="properties_list_element">Форма</li>
+        <li onClick={() => customizeActivation('centring')} className="properties_list_element">Центрирование</li>
     </ul>
 
     const modifyElement = modifyElementOpened &&
@@ -65,4 +72,8 @@ const listSelector =
 
 }
 
-export default InnerContent;
+const mapStateToProps = state =>({
+    layers: state.layers,
+})
+
+export default connect(mapStateToProps) (InnerContent);
