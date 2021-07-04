@@ -1,0 +1,26 @@
+@import "../../../../scss/_general";
+
+.positioning_container{
+  position: relative;
+  &.hidden{
+    opacity: 0;
+    pointer-events: none;
+  }
+  .frame{
+    min-width: 100px;
+    min-height: 50px;
+    display: flex;
+    align-items: flex-start;
+    background-color: #408eff;
+    flex-direction: column;
+    padding: 10px;
+    &_radio_container{
+      margin-top: 8px;
+    }
+  }
+  .input_container{
+      position: absolute;
+      min-width:  200px;
+      min-height: 150px;
+  }
+}

@@ -1,11 +1,7 @@
 import {connect} from "react-redux";
 import "./style.scss"
-import {useState, useEffect, useRef} from 'react'
-import {selectAddingElement, selectResolution, switchLayer, addLayer} from "../../ac"
-import useOutsideAlerter from '../../hooks/useOutsideAlerter'
-import classNames from "classnames";
 
-import PositionComponent from "./Components/PositionComponent"
+import SizeComponent from "./Components/SizeComponent"
 import BehaviourComponent from "./Components/BehaviourComponent"
 import DecorationComponent from "./Components/DecorationComponent"
 import FormComponent from "./Components/FormComponent"
@@ -18,7 +14,7 @@ function CustomizingComponent(props) {
     const factory = type =>{
         switch (type){
             case 'size':
-                return <PositionComponent/>
+                return <SizeComponent/>
                 break
             case 'behaviour':
                 return <BehaviourComponent/>
