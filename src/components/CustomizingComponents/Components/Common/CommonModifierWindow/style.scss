@@ -2,6 +2,22 @@
 
 .input_container{
   position: absolute;
-  min-width:  200px;
-  min-height: 150px;
+  min-width: 50vw;
+  min-height: 50vh;
+  top: calc(50% - 25vh);
+  left: calc(50% - 25vw);
+  background: $elements;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .back{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: $main;
+    cursor: pointer;
+  }
 }

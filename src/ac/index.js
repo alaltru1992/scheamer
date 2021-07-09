@@ -52,9 +52,9 @@ export function addElement({type, start, finish, id, className, actualResolution
         id,
         className,
         actualResolution,
-        properties:[
+        properties: {
 
-        ]
+        }
     }
     if(type === "container"){
         data = {
@@ -78,5 +78,15 @@ export function activateCustom(data){
 export function disActivateCustom(){
     return{
         type: "disactivate-custom"
+    }
+}
+
+export function setProperties({id, layerId, props, changeType}){
+    return{
+        type: "set-properties",
+        id,
+        layerId,
+        props,
+        changeType
     }
 }

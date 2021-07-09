@@ -2,7 +2,7 @@ import "./style.scss"
 import React from 'react'
 import classNames from "classnames";
 
-function CommonWindow({hidden, Content, ModifierContent}) {
+function CommonWindow({hidden, Content, ModifierContent, closeHandler}) {
 
     return (
         <>
@@ -10,6 +10,7 @@ function CommonWindow({hidden, Content, ModifierContent}) {
                 <div className="frame">
                     {Content}
                 </div>
+                <div className="close" onClick={closeHandler}/>
             </div>
             {hidden && ModifierContent}
         </>

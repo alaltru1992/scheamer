@@ -29,7 +29,8 @@ export function partesStyles(type, coordes, properties){
             left: LEFT + '%',
             top: TOP + '%',
             width: WIDTH+'%',
-            height: HEIGHT+'%'
+            height: HEIGHT+'%',
+            ...properties
         }
     }
     else if(type === "element"){
@@ -40,7 +41,8 @@ export function partesStyles(type, coordes, properties){
             left: LEFT + '%',
             top: TOP + '%',
             width: WIDTH+'%',
-            height: HEIGHT+'%'
+            height: HEIGHT+'%',
+            ...properties
         }
     }
 }
@@ -104,4 +106,22 @@ export function addToContainer(containers, addingId, elementToAdd){
            }
        }
    })
+}
+
+export function findElement(content, layerId, id){
+    const workLayer = content.find(elm => elm.id === layerId);
+    let searchingElement;
+    function search(element, id){
+        if(element.id === id){
+            searchingElement =  element
+        }
+        else if(element.hasOwnProperty('content') ){
+            element.content.map(elm => search(elm, id))
+        }
+        else if(element.hasOwnProperty('children') ){
+            element.children.map(elm => search(elm, id))
+        }
+    }
+    search(workLayer, id)
+    return searchingElement
 }

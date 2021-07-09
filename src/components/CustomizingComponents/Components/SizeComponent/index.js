@@ -1,16 +1,31 @@
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import "./style.scss"
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
 import CommonWindow from "../Common/CommonWindow"
 import CommonModifierWindow from "../Common/CommonModifierWindow"
+import {disActivateCustom, setProperties} from "../../../../ac"
+
+const SYMBOLS = {
+    container : "%",
+    view: "%",
+    fixed: "px"
+}
 
 
-function PositionComponent(props) {
+function PositionComponent({customizing:{id, layerId, type}}) {
+
+    const dispatch = useDispatch();
 
     const [sizeType, sizeTypeSelect] = useState(null);
+    const [width, widthSet] = useState(null);
+    const [height, heightSet] = useState(null);
+
+    const customizeElement = () =>{
+        dispatch(setProperties({id, layerId, changeType: type, props:{width: width+SYMBOLS[sizeType], height: height + SYMBOLS[sizeType]}}))
+    }
 
     return (
 
@@ -26,39 +41,34 @@ function PositionComponent(props) {
                 </RadioGroup>
             }
             hidden={!!sizeType}
+            closeHandler={ () => dispatch(disActivateCustom())}
             ModifierContent={
                 <CommonModifierWindow
                   Content={
                       <>
                           <div className="size width_input">
-                              <input type="text" className="input_value"/>
-                              <span></span>
+                            <span className="label">Ширина</span>
+                            <input onChange={(ev) => widthSet(+ev.target.value)} type="text" className="input_value"/>
+                            <span className="symbol">{SYMBOLS[sizeType]}</span>
                           </div>
-                          <div className="size width_input">
-                          <input type="text" className="input_value"/>
-                          <span></span>
+                          <div className="size height_input">
+                           <span className="label">Высота</span>
+                           <input onChange={(ev) => heightSet(+ev.target.value)} type="text" className="input_value"/>
+                            <span className="symbol">{SYMBOLS[sizeType]}</span>
                           </div>
                       </>
                   }
+                  closeHandler={() => sizeTypeSelect(null)}
+                  customizeHandler={customizeElement}
+                  buttonActive={width && height}
                 />
-                // <div className="input_container">
-                //     <div className="input_close"/>
-                //     <div className="size width_input">
-                //         <input type="text" className="input_value"/>
-                //         <span></span>
-                //     </div>
-                //     <div className="size width_input">
-                //         <input type="text" className="input_value"/>
-                //         <span></span>
-                //     </div>
-                // </div>
             }
         />
     );
 }
 
 const mapStateToProps = state =>({
-
+    customizing: state.customizing
 })
 
 export default connect(mapStateToProps)(PositionComponent);

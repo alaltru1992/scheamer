@@ -1,4 +1,4 @@
-import {walkOverToDeepest, conditionInContainerHandler, addToContainer} from "../helpers"
+import {walkOverToDeepest, conditionInContainerHandler, addToContainer, findElement} from "../helpers"
 
 export default (state = { layers: [], activeLayer: null}, action) =>{
     switch(action.type) {
@@ -27,9 +27,13 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             }
             break;
         case 'set-properties':
+            let elem = findElement(state.layers, action.layerId, action.id);
+            elem.properties = {
+                ...elem.properties,
+                ...action.props
+            }
             state = {
                 ...state,
-                activeLayer: action.data.activeLayer
             }
             break;
         case 'add-element':
