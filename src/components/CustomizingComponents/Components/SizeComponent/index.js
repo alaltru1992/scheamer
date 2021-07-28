@@ -24,11 +24,22 @@ function PositionComponent({customizing:{id, layerId, type}}) {
     const [height, heightSet] = useState(null);
 
     const customizeElement = () =>{
-        dispatch(setProperties({id, layerId, changeType: type, props:{width: width+SYMBOLS[sizeType], height: height + SYMBOLS[sizeType]}}))
+        dispatch(setProperties({
+            id,
+            layerId,
+            changeType: type,
+            props:{
+                type,
+                values:{
+                    sizeType,
+                    width: width,
+                    height: height
+                }
+            }
+        }))
     }
 
     return (
-
         <CommonWindow
             Content={
                 !sizeType &&

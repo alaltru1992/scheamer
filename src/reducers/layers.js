@@ -28,10 +28,10 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             break;
         case 'set-properties':
             let elem = findElement(state.layers, action.layerId, action.id);
-            elem.properties = {
+            elem.properties = [
                 ...elem.properties,
-                ...action.props
-            }
+                action.props
+            ]
             state = {
                 ...state,
             }

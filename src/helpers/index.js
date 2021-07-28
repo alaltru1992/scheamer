@@ -8,18 +8,62 @@ export function randomId(){
     return str
 }
 
-function convertTypeView(data,displayHTML, customParentContainer){
+function convertTypeView(data,displayHTML, customParentContainer, resolution, currentScreen){
     switch(data.type){
         case "container":
-            return displayHTML(data, customParentContainer);
+            return displayHTML(data, customParentContainer, resolution, currentScreen);
         case "element":
-            return displayHTML(data, customParentContainer);
+            return displayHTML(data, customParentContainer, resolution, currentScreen);
         case "modifier":
-            return displayHTML(data);
+            return displayHTML(data, null, resolution, currentScreen);
     }
 }
 
-export function partesStyles(type, coordes, properties){
+function propertiesTransformer(props){
+   return props.reduce((acc, next) =>{
+        return{
+            ...acc,
+            ...propFactory(next)
+        }
+    }, {})
+}
+
+function propFactory(prop){
+    switch(prop.type){
+        case 'size':
+            return SizeTransformer(prop);
+        default:
+            return {}
+    }
+}
+
+function SizeTransformer(prop){
+    const {
+        values:{sizeType, width, height},
+        resolution:{value:{width: resolutionWidth, height: resolutionHeight}},
+        currentScreen:{width: actualWidth, height: actualHeight}
+    } = prop
+    if(sizeType === "fixed"){
+        return {
+            width: width * (actualWidth / resolutionWidth) + 'px',
+            height: height * (actualHeight / resolutionHeight) + 'px'
+        }
+    }
+    else if(sizeType === "view"){
+        return {
+            width: width + 'vw',
+            height: height + 'vh'
+        }
+    }
+    else {
+        return {
+            width: width + '%',
+            height: height + '%'
+        }
+    }
+}
+
+export function partesStyles(type, coordes, properties, resolution, currentScreen){
     const {LEFT, TOP, WIDTH, HEIGHT} = coordes
     if(type === "container"){
         return {
@@ -30,7 +74,13 @@ export function partesStyles(type, coordes, properties){
             top: TOP + '%',
             width: WIDTH+'%',
             height: HEIGHT+'%',
-            ...properties
+            ...propertiesTransformer(properties.map(x => {
+                return{
+                    ...x,
+                    resolution,
+                    currentScreen
+                }
+            }))
         }
     }
     else if(type === "element"){
@@ -42,7 +92,13 @@ export function partesStyles(type, coordes, properties){
             top: TOP + '%',
             width: WIDTH+'%',
             height: HEIGHT+'%',
-            ...properties
+            ...propertiesTransformer(properties.map(x => {
+                return{
+                    ...x,
+                    resolution,
+                    currentScreen
+                }
+            }))
         }
     }
 }
@@ -52,9 +108,9 @@ function convertModifierView(data){
 
 }
 
-export function convertDataToView(data, displayHTML, customParentContainer = null){
+export function convertDataToView(data, displayHTML, customParentContainer = null, resolution, currentScreen){
     return[
-        data.map( x => convertTypeView(x,displayHTML, customParentContainer))
+        data.map( x => convertTypeView(x,displayHTML, customParentContainer, resolution, currentScreen))
     ]
 }
 
@@ -73,6 +129,13 @@ function walkTree(content, conditionHandler, element, initialId){
       }
   })
     return tmpId
+}
+
+export function getActualResolution(){
+    return {
+        width: Math.floor((document.documentElement.clientWidth ) * 0.8) ,
+        height: Math.floor((document.documentElement.clientWidth ) * 0.8 * 9 / 16)
+    }
 }
 
 export function conditionInContainerHandler({start: containerStart, finish: containerFinish, type , actualResolution: containerResolution}, {start: elemStart, finish: elemFinish, actualResolution: elementResolution}){

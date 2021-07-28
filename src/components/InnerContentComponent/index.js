@@ -4,11 +4,10 @@ import "./style.scss"
 import useOutsideAlert from "../../hooks/useOutsideAlerter"
 import {connect} from "react-redux";
 import {activateCustom} from "../../ac"
-import layers from "../../reducers/layers";
 
 
 function InnerContent(props) {
-    const {data, resolution, style, convertDataToView, convertContainerView, dispatch, layers} = props;
+    const {data, resolution, style, convertDataToView, convertContainerView, dispatch, layers, currentScreen} = props;
 
     const modifierEnter = () =>{
         timeout && timeoutToggler(clearTimeout(timeout))
@@ -63,17 +62,21 @@ const listSelector =
         </div>
 
 
+    const countHandler = () =>{
+        return !!data.children && !!data.children.length &&  convertDataToView(data.children,convertContainerView, {start: data.start, finish: data.finish, actualResolution: data.actualResolution}, resolution, currentScreen)
+    }
 
 
     return <div onPointerLeave={elementLeave} onPointerEnter={elementEnter} id={data.id} className={data.className} style={style}>
         {modifyElement}
-        {!!data.children && !!data.children.length &&  convertDataToView(data.children,convertContainerView, {start: data.start, finish: data.finish, actualResolution: data.actualResolution}) }
+        { countHandler() }
     </div>
 
 }
 
 const mapStateToProps = state =>({
     layers: state.layers,
+    resolution: state.resolution
 })
 
 export default connect(mapStateToProps) (InnerContent);

@@ -52,9 +52,9 @@ export function addElement({type, start, finish, id, className, actualResolution
         id,
         className,
         actualResolution,
-        properties: {
+        properties: [
 
-        }
+        ]
     }
     if(type === "container"){
         data = {

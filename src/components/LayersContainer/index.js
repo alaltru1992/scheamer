@@ -3,12 +3,12 @@ import {useState, useEffect, useRef} from 'react'
 import React from "react";
 import "./style.scss"
 import {addElement, dropCreation} from "../../ac"
-import {convertDataToView, partesStyles} from "../../helpers"
+import {convertDataToView, partesStyles, getActualResolution} from "../../helpers"
 import classNames from "classnames";
 import InnerContent from "../InnerContentComponent";
 import CustomizingComponent from "../CustomizingComponents"
 
-function convertContainerView(data, customParentContainer){
+function convertContainerView(data, customParentContainer, resolution, currentScreen){
     let startX = data.start.x;
     let startY = data.start.y;
     let finishX = data.finish.x;
@@ -33,15 +33,12 @@ function convertContainerView(data, customParentContainer){
         WIDTH = Math.abs(((data.finish.x - data.start.x) / data.actualResolution.width) * 100);
         HEIGHT = Math.abs(((data.finish.y - data.start.y) / data.actualResolution.height) * 100);
     }
-    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT}, data.properties)
+    const style =  partesStyles(data.type, {LEFT, TOP, WIDTH, HEIGHT}, data.properties, resolution, currentScreen)
 
 
     return ( <InnerContent
-        data={data}  style={style} convertDataToView = {convertDataToView} convertContainerView={convertContainerView}
+        data={data}  style={style} convertDataToView = {convertDataToView} convertContainerView={convertContainerView} currentScreen={currentScreen}
     />)
-    // return <div id={data.id} className={data.className} style={style}>
-    //     {!!data.children && !!data.children.length &&  convertDataToView(data.children, resolution,convertContainerView, {start: data.start, finish: data.finish}) }
-    // </div>
 }
 
 function LayersContainer(props) {
@@ -50,9 +47,10 @@ function LayersContainer(props) {
     const [creatingObj, creatingObjHandler] = useState(null)
     const [addElementFormOpened, addElementFormToggler] = useState(false)
     const [currentClassName, currentClassNameInput] = useState(false)
-    const [addingData, addingDataSet] = useState({})
+    const [addingData, addingDataSet] = useState({});
+    const [currentScreen, currentScreenSet] = useState({});
 
-    const {layers, creation, customizing} = props;
+    const {layers, creation, customizing, resolution} = props;
 
     const startCreation = ({clientX, clientY}, type) => {
         if(type) {
@@ -80,14 +78,6 @@ function LayersContainer(props) {
         addElementFormToggler(false);
     }
 
-
-    const getActualResolution = () =>{
-        return {
-            width: Math.floor((document.documentElement.clientWidth ) * 0.8) ,
-            height: Math.floor((document.documentElement.clientWidth ) * 0.8 * 9 / 16)
-        }
-    }
-
     const finishCreation = ({clientX, clientY}, type) => {
         if(type && !addElementFormOpened) {
             const x = clientX - 4;
@@ -102,6 +92,18 @@ function LayersContainer(props) {
 
         }
     }, [creation]);
+
+    useEffect(() =>{
+        const ro = new ResizeObserver(() =>{
+            currentScreenSet({
+                ...getActualResolution()
+            })
+        })
+        ro.observe(document.querySelector(".main"));
+        return function(){
+            ro.unobserve(document.querySelector(".main"))
+        }
+    }, [])
 
 
 
@@ -130,7 +132,7 @@ function LayersContainer(props) {
              onPointerUp={(event) => finishCreation(event,creation.creatingObject)}
              ref={layerContainer} className={classNames("layers-container", {"selected": creation.creatingObject})} >
             {
-                !!layers.layers.length && convertDataToView(layers.layers.find(x => x.id === layers.activeLayer).content, convertContainerView, null)
+                !!layers.layers.length && convertDataToView(layers.layers.find(x => x.id === layers.activeLayer).content, convertContainerView, null, resolution, currentScreen)
             }
             {addElementForm}
             {customizing.active && <CustomizingComponent/>}

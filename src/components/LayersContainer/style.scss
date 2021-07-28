@@ -8,6 +8,7 @@
   border: 2px solid $borders;
   background-color: #fff;
   position: relative;
+  //z-index: 10;
   &.selected{
     cursor: crosshair;
   }
