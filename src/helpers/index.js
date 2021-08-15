@@ -63,6 +63,32 @@ function SizeTransformer(prop){
     }
 }
 
+export function adaptElementState(elem, {type, values}, state){
+    let currentElement = JSON.parse(JSON.stringify(elem));
+    if (type === "size"){
+        currentElement = {
+            ...currentElement,
+            properties:[
+                ...currentElement.properties,
+                {
+                    type: 'size',
+                    values
+                }
+            ]
+        }
+        if(values.sizeType === "fixed"){
+
+        }
+        else if(values.sizeType === "container" ){
+
+        }
+        else{
+
+        }
+    }
+    return currentElement
+}
+
 export function partesStyles(type, coordes, properties, resolution, currentScreen){
     const {LEFT, TOP, WIDTH, HEIGHT} = coordes
     if(type === "container"){

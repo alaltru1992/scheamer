@@ -1,4 +1,4 @@
-import {walkOverToDeepest, conditionInContainerHandler, addToContainer, findElement} from "../helpers"
+import {walkOverToDeepest, conditionInContainerHandler, addToContainer, findElement, adaptElementState} from "../helpers"
 
 export default (state = { layers: [], activeLayer: null}, action) =>{
     switch(action.type) {
@@ -27,11 +27,10 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
             }
             break;
         case 'set-properties':
-            let elem = findElement(state.layers, action.layerId, action.id);
-            elem.properties = [
-                ...elem.properties,
-                action.props
-            ]
+            let elem = adaptElementState(findElement(state.layers, action.layerId, action.id), action.props, state);
+            findElement(state.layers, action.layerId, action.id).properties  = JSON.parse(JSON.stringify(elem)).properties;
+
+
             state = {
                 ...state,
             }
@@ -52,5 +51,6 @@ export default (state = { layers: [], activeLayer: null}, action) =>{
         default:
           break;
     }
+    console.log(state)
     return state
 }
