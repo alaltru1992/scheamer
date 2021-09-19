@@ -63,8 +63,10 @@ function SizeTransformer(prop){
     }
 }
 
-export function adaptElementState(elem, {type, values}, state){
+export function adaptElementState(elem, {type, values}, state, resolution){
+    const currentScreen = getActualResolution();
     let currentElement = JSON.parse(JSON.stringify(elem));
+    debugger
     if (type === "size"){
         currentElement = {
             ...currentElement,
@@ -77,13 +79,13 @@ export function adaptElementState(elem, {type, values}, state){
             ]
         }
         if(values.sizeType === "fixed"){
-
+            // create finish && start properties for element
         }
         else if(values.sizeType === "container" ){
-
+            // create finish && start properties for element
         }
         else{
-
+            // create finish && start properties for element
         }
     }
     return currentElement
@@ -144,7 +146,8 @@ export function walkOverToDeepest(layer, conditionHandler, element){
     return  walkTree(layer.content, conditionHandler, element, layer.id)
 }
 
-function walkTree(content, conditionHandler, element, initialId){
+export function walkTree(content, conditionHandler, element, initialId){
+    debugger
   let tmpId = initialId;
   content.map( (container, index) => {
       if(conditionHandler(container,element)){
